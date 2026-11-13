@@ -108,7 +108,7 @@ npx crx3 -p privatekey.pem -o dist/MCNewTab.crx dist/MCNewTab
 
 ## 隐私
 
-所有数据都在本机：设置、搜索历史、小组件、壁纸与资源包保存在 `chrome.storage.local` 或 IndexedDB，不上传任何数据，也不含统计或遥测。图标抓取只在你使用时发生，请求由浏览器直接发往目标网站或公共 favicon 服务（Google s2、DuckDuckGo）。卸载扩展或清除扩展数据即可删除全部内容。
+所有数据都在本机：设置、搜索历史、小组件、壁纸与资源包保存在 `chrome.storage.local` 或 IndexedDB，不上传任何数据，也不含统计或遥测。图标抓取只在你使用时发生，请求由浏览器直接发往目标网站或公共 favicon 服务（Google s2、DuckDuckGo）。卸载扩展或清除扩展数据即可删除全部内容。完整说明见[隐私政策](docs/privacy-policy.md)。
 
 ## 作者
 

@@ -108,7 +108,7 @@ Interface strings live in `src/texts/*.lang` as `key=value`. To add a language, 
 
 ## Privacy
 
-Everything stays on your device: settings, search history, widgets, wallpapers and resource packs are stored in `chrome.storage.local` or IndexedDB. Nothing is uploaded and there is no analytics or telemetry. Icon fetching only happens when you use it, and requests go directly from your browser to the target site or a public favicon service (Google s2, DuckDuckGo). Uninstalling the extension or clearing its data removes everything.
+Everything stays on your device: settings, search history, widgets, wallpapers and resource packs are stored in `chrome.storage.local` or IndexedDB. Nothing is uploaded and there is no analytics or telemetry. Icon fetching only happens when you use it, and requests go directly from your browser to the target site or a public favicon service (Google s2, DuckDuckGo). Uninstalling the extension or clearing its data removes everything. See the full [Privacy Policy](docs/privacy-policy.md).
 
 ## Author
 
