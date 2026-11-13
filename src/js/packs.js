@@ -434,20 +434,26 @@ const MCPacks = (() => {
   }
 
   async function loadDefaultHeader() {
-    try {
-      const response = await fetch(DEFAULT_ROOT + 'manifest.json', { cache: 'no-cache' });
-      if (!response.ok) return;
-      const manifest = await response.json();
-      if (manifest && manifest.header && manifest.header.name) {
-        defaultHeader = {
-          name: String(manifest.header.name),
-          description: String(manifest.header.description || ''),
-          version: normalizeVersion(manifest.header.version)
-        };
+    /* 内置包用 pack.json，避免与扩展根目录 manifest.json 重名；旧包仍兼容 manifest.json */
+    const names = ['pack.json', 'manifest.json'];
+    for (const name of names) {
+      try {
+        const response = await fetch(DEFAULT_ROOT + name, { cache: 'no-cache' });
+        if (!response.ok) continue;
+        const manifest = await response.json();
+        if (manifest && manifest.header && manifest.header.name) {
+          defaultHeader = {
+            name: String(manifest.header.name),
+            description: String(manifest.header.description || ''),
+            version: normalizeVersion(manifest.header.version)
+          };
+        }
+        return;
+      } catch (err) {
+        /* 继续尝试下一个文件名 */
       }
-    } catch (err) {
-      console.warn('[packs] 读取内置包 manifest 失败', err);
     }
+    console.warn('[packs] 读取内置包清单失败');
   }
 
   async function reloadAll(silent) {
@@ -574,7 +580,8 @@ const MCPacks = (() => {
       throw new Error('packs.importError');
     }
 
-    const manifestEntry = findEntry(entries, 'manifest.json');
+    /* 用户包优先 pack.json，兼容旧包的 manifest.json */
+    const manifestEntry = findEntry(entries, 'pack.json') || findEntry(entries, 'manifest.json');
     if (!manifestEntry) throw new Error('packs.badManifest');
     const header = parseManifest(new TextDecoder('utf-8').decode(manifestEntry.bytes));
 

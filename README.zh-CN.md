@@ -35,7 +35,7 @@ Minecraft 基岩版风格的 Edge / Chrome 新标签页扩展。Manifest V3，�
 `.kzpack` 就是把 zip 改后缀。在 **设置 → 全局资源** 中导入；列表位置越靠上优先级越高，最下面是内置 `Default` 包。
 
 ```
-manifest.json
+manifest.json         包元信息（也可命名为 pack.json）
 pack_icon.png
 textures/ui/*.png     可覆盖的 UI 贴图，如 title.png、toggle_on.png、indent.png
 font/main.ttf         可选：替换界面字体
@@ -60,6 +60,8 @@ ui/theme.json         可选：以 -- 开头的 CSS 变量
 
 规则：
 
+- 包清单可命名为 `manifest.json` 或 `pack.json`，两者同时存在时优先 `pack.json`。
+- 内置 `Default` 包使用 `pack.json`，确保扩展包根目录只有一个 `manifest.json`。
 - `header.name`、`header.uuid`、`header.version` 必填；相同 `uuid` 重新导入会覆盖旧包。
 - 只覆盖包内实际存在的文件，其余继续使用 `Default`。
 - `texts/*.lang` 按 key 合并，不会清空未写的键。

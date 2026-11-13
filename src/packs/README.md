@@ -1,10 +1,12 @@
 # 资源包（.kzpack）说明
 
-资源包目录结构直接沿用 Minecraft 基岩版资源包的写法，内层至少要有根目录的 `manifest.json`。
+资源包目录结构直接沿用 Minecraft 基岩版资源包的写法，内层至少要有根目录的 `manifest.json`（也接受 `pack.json`）。
+
+> 内置默认包使用 `pack.json`，避免与扩展根目录的 `manifest.json` 重名；用户导入的 `.kzpack` 两种文件名都支持，优先读取 `pack.json`。
 
 ```
 my-pack/
-├─ manifest.json          # 必需：包头
+├─ manifest.json          # 必需：包头（也可命名为 pack.json）
 ├─ pack_icon.png          # 可选：包标（列表里显示的图标）
 ├─ textures/
 │  └─ ui/                 # 界面贴图，按下面的逻辑文件名覆盖
@@ -19,7 +21,7 @@ my-pack/
    └─ theme.json          # 可选：主题变量覆盖
 ```
 
-## manifest.json
+## manifest.json / pack.json
 
 ```json
 {
@@ -39,14 +41,14 @@ my-pack/
 
 导入时会校验：
 
-- 压缩包内必须有根目录 `manifest.json`；
+- 压缩包内必须有根目录 `manifest.json` 或 `pack.json`（优先 `pack.json`）；
 - `header.name`、`header.uuid`、`header.version` 缺一不可，否则拒绝导入；
 - 同一 `uuid` 再次导入视为更新，会覆盖旧版本的包。
 
 ## 覆盖与优先级
 
 - 所有已启用的包按列表顺序覆盖，**列表越靠上优先级越高**；
-- 内置的「Vanilla 默认资源包」永远在最底部，优先级最低；
+- 内置的 `Default` 包永远在最底部，优先级最低；
 - 同一个路径在多个包里出现时，只有优先级最高的那一份生效；
 - 在「设置 → 全局资源」里可以启用 / 停用、上移 / 下移、删除，操作后界面立即换材质，无需刷新扩展；
 - 包体保存在 IndexedDB，关闭浏览器后仍然保留。

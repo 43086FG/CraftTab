@@ -35,7 +35,7 @@ Drag the `.crx` into the extensions page. Some browsers restrict non-store CRX i
 A `.kzpack` is a zip renamed to `.kzpack`. Import it in **Settings → Global Resources**; the pack list puts higher entries above lower ones, with the built-in `Default` pack at the bottom.
 
 ```
-manifest.json
+manifest.json      # pack header (pack.json is also accepted)
 pack_icon.png
 textures/ui/*.png     # UI textures, e.g. title.png, toggle_on.png, indent.png
 font/main.ttf         # optional: replace the interface font
@@ -60,6 +60,8 @@ Minimal `manifest.json`:
 
 Rules:
 
+- The pack header may be named `manifest.json` or `pack.json`; `pack.json` wins if both exist.
+- The built-in `Default` pack ships as `pack.json` so the extension package keeps a single root `manifest.json`.
 - `header.name`, `header.uuid` and `header.version` are required. Re-importing the same `uuid` replaces the old pack.
 - Only files inside the pack are overridden; everything else keeps using `Default`.
 - `texts/*.lang` is merged key by key, not replaced wholesale.
