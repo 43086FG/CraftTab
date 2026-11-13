@@ -1,0 +1,657 @@
+﻿/* ============================================================
+   Minecraft 基岩版 UI —— 全部控件取自原版资源包贴图
+   缩放基准：1024×768 逻辑像素；--u 由 ui.js 注入（1 = 基准像素）
+   ============================================================ */
+
+@font-face {
+  font-family: 'MC Font';
+  src: url('../assets/font.ttf') format('truetype');
+  font-display: swap;
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --u: calc(100vw / 1024);
+  --mc-green: #4caf50;
+  --mc-green-dark: #177400;
+  --mc-red: #b9423e;
+  --mc-red-light: #ce6260;
+  --mc-light: #c6c6c6;
+  --mc-gray: #48494b;
+  --mc-gray-deep: #333335;
+  --mc-bg: #232323;
+  --mc-text: #f2f2f2;
+  --mc-text-dark: #3c3c3c;
+  --mc-text-dim: #a6a6a6;
+  --mc-slot: 48rem;
+  --mc-cell: calc(var(--mc-slot) + 2rem);
+  --mc-font-stack: 'MC Pack Font', 'MC Font', 'Segoe UI', Arial, sans-serif;
+}
+
+html {
+  font-size: var(--u, 1px);
+}
+
+html[data-lang='zh-CN'] {
+  --mc-font-stack: 'MC Pack Font', 'MC Font', 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', 'Source Han Sans SC', sans-serif;
+}
+html[data-lang='zh-TW'] {
+  --mc-font-stack: 'MC Pack Font', 'MC Font', 'Microsoft JhengHei', 'PingFang TC', 'Noto Sans CJK TC', 'Source Han Sans TC', sans-serif;
+}
+html[data-lang='ja'] {
+  --mc-font-stack: 'MC Pack Font', 'MC Font', 'Yu Gothic UI', 'Meiryo', 'MS PGothic', 'Noto Sans JP', sans-serif;
+}
+html[data-lang='ko'] {
+  --mc-font-stack: 'MC Pack Font', 'MC Font', 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+}
+html[data-lang='ru'] {
+  --mc-font-stack: 'MC Pack Font', 'MC Font', 'Segoe UI', 'Arial', 'Noto Sans', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: var(--mc-font-stack);
+  font-size: 16rem;
+  color: var(--mc-text);
+  background: #101010;
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+  text-rendering: geometricPrecision;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: 0;
+  background: none;
+  padding: 0;
+}
+
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+  image-rendering: pixelated;
+}
+
+/* ---------- 主菜单按钮（取样自原版截图：C6C6C6 面 + 131313 外框 + F7F7F7/656465 内边） ---------- */
+
+.mc-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 64rem;
+  padding: 0 12rem;
+  font-size: 20rem;
+  line-height: 1.2;
+  text-align: center;
+  color: #4c4c4c;
+  background: #c6c6c6;
+  border: 2rem solid #131313;
+  box-shadow: inset 2rem 2rem 0 #f7f7f7, inset -2rem -2rem 0 #656465;
+  image-rendering: pixelated;
+  text-shadow: none;
+  transition: color .1s steps(1, end);
+}
+
+.mc-button:hover,
+.mc-button:focus-visible {
+  background: #218306;
+  border-color: #ffffff;
+  box-shadow: inset 2rem 2rem 0 #17cd07, inset -2rem -2rem 0 #17cd07;
+  color: #ffffff;
+  text-shadow: 2rem 2rem 0 rgba(0, 0, 0, .35);
+  outline: none;
+}
+
+.mc-button:active {
+  background: #1d7405;
+  border-color: #ffffff;
+  box-shadow: inset 2rem 2rem 0 #17cd07, inset -2rem -2rem 0 #17cd07;
+  color: #ffffff;
+  transform: translateY(2rem);
+  text-shadow: none;
+}
+
+/* ---------- 输入框（edit_box_indent） ---------- */
+
+.mc-input {
+  width: 100%;
+  min-height: 40rem;
+  padding: 0 10rem;
+  font-size: 17rem;
+  color: #ededed;
+  background: #2b2b2b;
+  box-shadow: inset 2rem 2rem 0 #101010, inset -2rem -2rem 0 #5a5a5a;
+  border: 2rem solid #131313;
+  border-image: var(--tex_indent, url('../assets/vanilla/indent.png')) 2 / 4rem stretch;
+  image-rendering: pixelated;
+  outline: none;
+}
+
+.mc-input::placeholder {
+  color: #7a7a7a;
+}
+
+.mc-input:focus {
+  border-image-source: var(--tex_indent_hover, url('../assets/vanilla/indent_hover.png'));
+}
+
+/* ---------- 下拉框（dropdown_background + 原版箭头） ---------- */
+
+.mc-select {
+  width: 100%;
+  height: 52rem;
+  padding: 0 44rem 0 12rem;
+  font-size: 18rem;
+  color: #2b2b2b;
+  background: #c6c6c6;
+  box-shadow: inset 2rem 2rem 0 #f7f7f7, inset -2rem -2rem 0 #8b8b8b;
+  border: 4rem solid transparent;
+  border-image: var(--tex_btn_light, url('../assets/vanilla/btn_light.png')) 2 / 4rem stretch;
+  border-radius: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  image-rendering: pixelated;
+  cursor: pointer;
+}
+
+.mc-select:focus {
+  outline: none;
+  border-image-source: var(--tex_btn_light, url('../assets/vanilla/btn_light.png'));
+}
+
+/* ---------- 原版开关（toggle_* 30x16 → 两倍） ---------- */
+
+.mc-toggle {
+  flex: 0 0 auto;
+  width: 60rem;
+  height: 32rem;
+  background-image: var(--tex_toggle_off, url('../assets/vanilla/toggle_off.png'));
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+}
+
+.mc-toggle:hover {
+  background-image: var(--tex_toggle_off_hover, url('../assets/vanilla/toggle_off_hover.png'));
+}
+
+.mc-toggle.is-on {
+  background-image: var(--tex_toggle_on, url('../assets/vanilla/toggle_on.png'));
+}
+
+.mc-toggle.is-on:hover {
+  background-image: var(--tex_toggle_on_hover, url('../assets/vanilla/toggle_on_hover.png'));
+}
+
+.mc-toggle:focus-visible {
+  outline: 2rem solid #ffffff;
+  outline-offset: 2rem;
+}
+
+/* ---------- 原版方形复选框（checkbox 16x13） ---------- */
+
+.mc-check {
+  flex: 0 0 auto;
+  width: 28rem;
+  height: 23rem;
+  background: none;
+  border: 0;
+  padding: 0;
+  image-rendering: pixelated;
+}
+
+.mc-check img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+}
+
+/* ---------- 操作按钮（纯 CSS 复原：四边对称，不依赖贴图切片） ---------- */
+
+.mc-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10rem;
+  min-height: 56rem;
+  padding: 0 16rem;
+  font-size: 18rem;
+  line-height: 1.2;
+  color: #2b2b2b;
+  background: #c6c6c6;
+  border: 2rem solid #000000;
+  box-shadow: inset 2rem 2rem 0 #f7f7f7, inset -2rem -2rem 0 #8b8b8b;
+  image-rendering: pixelated;
+}
+
+.mc-action:focus-visible {
+  outline: 2rem solid #ffffff;
+  outline-offset: 2rem;
+}
+
+.mc-action.is-red {
+  color: #ffffff;
+  text-shadow: 2rem 2rem 0 rgba(0, 0, 0, .4);
+  background: #b9423c;
+  box-shadow: inset 2rem 2rem 0 #ce6260, inset -2rem -2rem 0 #9e2d25;
+}
+
+.mc-action.is-red:hover,
+.mc-action.is-red:focus-visible {
+  background: #c85551;
+  outline: none;
+}
+
+.mc-action.is-red:active {
+  background: #a63a35;
+}
+
+.mc-action.is-green {
+  color: #ffffff;
+  text-shadow: 2rem 2rem 0 rgba(0, 0, 0, .4);
+  background: #3f8f22;
+  box-shadow: inset 2rem 2rem 0 #6bbf4a, inset -2rem -2rem 0 #256315;
+}
+
+.mc-action.is-green:hover,
+.mc-action.is-green:focus-visible {
+  background: #4aa62a;
+  outline: none;
+}
+
+.mc-action.is-green:active {
+  background: #357a1c;
+}
+
+.mc-action.is-gray {
+  color: #2b2b2b;
+  background: #c6c6c6;
+  box-shadow: inset 2rem 2rem 0 #f7f7f7, inset -2rem -2rem 0 #8b8b8b;
+}
+
+.mc-action.is-gray:hover,
+.mc-action.is-gray:focus-visible {
+  background: #d8d8d8;
+  outline: none;
+}
+
+.mc-action.is-gray:active {
+  background: #b0b0b0;
+}
+
+.mc-action.is-stone {
+  color: #2b2b2b;
+  background: #c6c6c6;
+  box-shadow: inset 2rem 2rem 0 #f7f7f7, inset -2rem -2rem 0 #8b8b8b;
+}
+
+.mc-action.is-stone:hover,
+.mc-action.is-stone:focus-visible {
+  background: #d8d8d8;
+  outline: none;
+}
+
+.mc-action.is-stone:active {
+  background: #b0b0b0;
+}
+
+/* ---------- 原版滑杆：凹槽轨道 + 方形滑块 ---------- */
+
+.volume-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14rem;
+  width: 100%;
+}
+
+.mc-slider {
+  flex: 1 1 auto;
+  width: 100%;
+  height: 48rem;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  appearance: none;
+  -webkit-appearance: none;
+  image-rendering: pixelated;
+  cursor: pointer;
+}
+
+.mc-slider::-webkit-slider-runnable-track {
+  height: 14rem;
+  background: #3f3f3f var(--tex_slider_track, url('../assets/vanilla/slider_track.png')) center / 100% 100% no-repeat;
+  border: 2rem solid #131313;
+  box-shadow: inset 2rem 2rem 0 #232323, inset -2rem -2rem 0 #6a6a6a;
+}
+
+.mc-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 30rem;
+  height: 30rem;
+  margin-top: -10rem;
+  background: #c6c6c6 var(--tex_slider_thumb, url('../assets/vanilla/slider_thumb.png')) center / 100% 100% no-repeat;
+  border: 2rem solid #131313;
+  box-shadow: inset 2rem 2rem 0 #f7f7f7, inset -2rem -2rem 0 #8b8b8b;
+}
+
+.mc-slider:hover::-webkit-slider-thumb {
+  background-image: var(--tex_slider_thumb_hover, url('../assets/vanilla/slider_thumb_hover.png'));
+}
+
+.mc-slider:disabled {
+  cursor: default;
+  opacity: .55;
+  filter: grayscale(1);
+}
+
+.volume-value {
+  flex: 0 0 auto;
+  min-width: 58rem;
+  font-size: 18rem;
+  text-align: right;
+}
+
+.mc-icon {
+  width: 28rem;
+  height: 28rem;
+  image-rendering: pixelated;
+  flex: 0 0 auto;
+}
+
+/* ---------- 滚动条（原版 ScrollBox / ScrollHandle） ---------- */
+
+.mc-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #c6c6c6 #1d1d1d;
+}
+
+.mc-scroll::-webkit-scrollbar {
+  width: 16rem;
+  height: 16rem;
+}
+
+.mc-scroll::-webkit-scrollbar-track {
+  background: #1d1d1d;
+  border-left: 2rem solid #0c0c0c;
+  border-right: 2rem solid #0c0c0c;
+}
+
+.mc-scroll::-webkit-scrollbar-thumb {
+  background: #c6c6c6 var(--tex_scroll_handle, url('../assets/vanilla/scroll_handle.png')) center / 100% 100% no-repeat;
+  border: 2rem solid #0c0c0c;
+  min-height: 28rem;
+}
+
+.mc-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: #dedede;
+}
+
+/* ---------- 原版灰底窗口（dialog_background_opaque 着色） ---------- */
+
+.mc-dark-window {
+  position: relative;
+  width: min(560rem, 94vw);
+  background: #262626;
+  box-shadow: inset 2rem 2rem 0 #4c4c4c, inset -2rem -2rem 0 #131313;
+  border: 8rem solid transparent;
+  border-image: var(--tex_panel_gray, url('../assets/vanilla/panel_gray.png')) 4 / 8rem stretch;
+  image-rendering: pixelated;
+  animation: mcPop .14s steps(2, end) both;
+}
+
+@keyframes mcPop {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ---------- 窗口标题栏 ---------- */
+
+.win-head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56rem;
+  padding: 0 16rem;
+  font-size: 22rem;
+  color: #f4f4f4;
+  text-shadow: 2rem 2rem 0 rgba(0, 0, 0, .55);
+  border-bottom: 4rem solid #2d2d2d;
+}
+
+/* ---------- 表单 ---------- */
+
+.form-window {
+  width: min(620rem, 94vw);
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.form-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12rem;
+  padding: 16rem 18rem 18rem;
+  overflow-y: auto;
+  background: #262626;
+  border-bottom: 4rem solid #2d2d2d;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.field-label {
+  display: block;
+  margin: 0;
+  font-size: 18rem;
+  line-height: 1.25;
+  color: #ededed;
+  text-shadow: 2rem 2rem 0 rgba(0, 0, 0, .5);
+}
+
+/* ---------- 图标选择 ---------- */
+
+.icon-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6rem;
+  margin-top: 2rem;
+}
+
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 56rem);
+  gap: 6rem;
+  min-height: 56rem;
+  padding: 6rem;
+  background: #2f2f2f;
+  border: 2rem solid #141414;
+  box-shadow: inset 2rem 2rem 0 #454545, inset -2rem -2rem 0 #1b1b1b;
+}
+
+.icon-cell {
+  width: 56rem;
+  height: 56rem;
+  padding: 5rem;
+  background: #3a3a3a;
+  border: 2rem solid #101010;
+  box-shadow: inset 2rem 2rem 0 #5a5a5a, inset -2rem -2rem 0 #262626;
+  image-rendering: pixelated;
+}
+
+.icon-cell.is-loading {
+  background: #3a3a3a var(--tex_missing_texture, url('../assets/missing_texture.png')) center / 36rem 36rem no-repeat;
+}
+
+.icon-cell img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.icon-cell.is-selected {
+  box-shadow: inset 0 0 0 3rem #4caf50, inset 2rem 2rem 0 #5a5a5a, inset -2rem -2rem 0 #262626;
+}
+
+.icon-cell:hover {
+  box-shadow: inset 0 0 0 2rem #9a9a9a, inset 2rem 2rem 0 #5a5a5a, inset -2rem -2rem 0 #262626;
+}
+
+.icon-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8rem;
+}
+
+.icon-hint {
+  margin: 0;
+  font-size: 15rem;
+  line-height: 1.3;
+  color: #c9a04a;
+}
+
+.icon-actions .mc-action {
+  min-height: 48rem;
+  font-size: 17rem;
+  padding: 0 14rem;
+}
+
+.form-error {
+  margin: 4rem 0 0;
+  font-size: 16rem;
+  color: #ff9c92;
+  text-shadow: 1rem 1rem 0 rgba(0, 0, 0, .5);
+}
+
+.form-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12rem;
+  padding: 16rem 20rem 20rem;
+}
+
+.form-actions .mc-action {
+  min-height: 56rem;
+}
+
+/* ---------- 确认窗口 ---------- */
+
+.delete-window {
+  width: min(560rem, 94vw);
+  overflow: hidden;
+}
+
+.delete-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56rem;
+  padding: 0 48rem;
+  font-size: 24rem;
+  text-align: center;
+  color: #f5f5f5;
+  text-shadow: 2rem 2rem 0 rgba(0, 0, 0, .55);
+  border-bottom: 4rem solid #2d2d2d;
+}
+
+.delete-text {
+  padding: 26rem 20rem;
+  font-size: 19rem;
+  line-height: 1.6;
+  color: #ededed;
+  text-shadow: 1rem 1rem 0 rgba(0, 0, 0, .45);
+  background: #232323;
+  border: 0;
+  margin: 0;
+}
+
+/* ---------- 确认窗口的操作区 ---------- */
+
+.delete-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10rem;
+  padding: 16rem 20rem 20rem;
+}
+
+.delete-actions .mc-action {
+  min-height: 56rem;
+}
+
+/* ---------- 遮罩 ---------- */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24rem;
+  background: rgba(0, 0, 0, .55);
+}
+
+/* ---------- Toast ---------- */
+
+.mc-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 34rem;
+  z-index: 80;
+  padding: 10rem 20rem;
+  font-size: 17rem;
+  color: #f4f4f4;
+  text-shadow: 2rem 2rem 0 rgba(0, 0, 0, .5);
+  background: transparent;
+  border: 8rem solid transparent;
+  border-image: var(--tex_panel_gray, url('../assets/vanilla/panel_gray.png')) 4 / 8rem stretch;
+  transform: translate(-50%, 16rem);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .18s steps(2, end), transform .18s steps(2, end);
+}
+
+.mc-toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* ---------- 工具类 ---------- */
+
+.u-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}

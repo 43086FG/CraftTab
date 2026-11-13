@@ -1,0 +1,164 @@
+﻿## Minecraft 風格新分頁 — 繁體中文（台灣）
+## 格式：key=value，與 Minecraft 原版 .lang 檔案一致
+
+## 主選單
+menu.search=搜尋
+menu.settings=設定
+menu.widgets=小工具
+
+## 搜尋面板
+search.title=按關鍵詞尋找網頁
+search.placeholder=輸入搜尋關鍵詞…
+search.hint=按 Enter 開始搜尋
+search.history=搜尋紀錄
+search.clear=清除紀錄
+search.empty=尚無搜尋紀錄
+
+## 物品欄
+inventory.title=小工具
+inventory.searchPlaceholder=搜尋組件
+inventory.newCategory=新增分類
+inventory.close=關閉
+inventory.dragHint=將圖示拖出面板即可刪除
+inventory.empty=這個分類還是空的，點擊 + 新增組件
+inventory.noMatch=沒有找到符合的組件
+inventory.hotbar=快捷欄
+inventory.welcomeTitle=歡迎回來
+inventory.welcomeBody=你還沒有任何分類。先建立一個分類，用來收藏你常用的網站吧。
+inventory.welcomeAction=建立第一個分類
+
+## 分類
+category.createTitle=新增分類
+category.nameLabel=分類名稱
+category.namePlaceholder=例如：Minecraft
+category.cancel=取消新增
+category.save=建立分類
+
+## 新增 / 編輯表單
+form.addTitle=新增組件
+form.editTitle=變更組件
+form.nameLabel=網站名稱
+form.namePlaceholder=例如：Minecraft Wiki
+form.urlLabel=網址
+form.urlPlaceholder=輸入網址，例如 minecraft.net
+form.cancelAdd=取消新增
+form.saveAdd=儲存新增
+form.cancelEdit=取消變更
+form.saveEdit=儲存變更
+form.errorName=請輸入網站名稱
+form.errorUrl=請輸入有效的網址
+
+## 刪除確認
+delete.title=你確定嗎？
+delete.body=如果你刪除這個小工具，它將永遠消失。
+delete.cancel=取消
+delete.confirm=刪除組件
+delete.categoryBody=如果你刪除這個分類，其中的所有小工具都將永遠消失。
+delete.categoryConfirm=刪除分類
+
+## 設定
+settings.title=設定
+settings.back=返回
+nav.wallpaper=壁紙
+nav.general=一般設定
+nav.widgets=小工具
+nav.language=語言
+nav.reset=重設與備份
+nav.packs=全域資源
+
+## 壁紙
+wallpaper.localLabel=本機檔案（圖片、GIF 或影片）
+wallpaper.chooseFile=選擇檔案
+wallpaper.urlLabel=網路連結
+wallpaper.urlPlaceholder=貼上圖片、GIF 或影片連結
+wallpaper.apply=套用連結
+wallpaper.restoreDefault=還原預設壁紙
+wallpaper.current=目前的壁紙
+wallpaper.typeDefault=預設壁紙
+wallpaper.typeImage=圖片
+wallpaper.typeVideo=影片
+wallpaper.soundLabel=壁紙聲音
+wallpaper.soundDesc=開啟後影片壁紙將播放聲音，預設為靜音。
+wallpaper.fileHint=支援 JPG、PNG、GIF、MP4、WebM，單一檔案不超過 24 MB。
+wallpaper.fileTooLarge=檔案太大，請選擇不超過 24 MB 的檔案。
+wallpaper.saveError=壁紙儲存失敗，請換一個檔案再試。
+
+## 一般
+general.searchEngine=預設搜尋引擎
+general.searchEngineDesc=主頁搜尋面板會使用這裡選擇的搜尋引擎。
+
+## 語言
+language.desc=選擇介面語言，切換後所有頁面文字立即更新。
+language.current=目前語言
+language.name.zh_CN=簡體中文
+language.name.zh_TW=繁體中文
+language.name.en=英文
+language.name.ja=日文
+language.name.ko=韓文
+language.name.es=西班牙文
+language.name.ru=俄文
+language.name.fr=法文
+
+## 小工具設定
+widgets.desc=管理分類和快捷欄。刪除分類會同時移除其中的組件。
+widgets.categories=分類
+widgets.itemsCount={n} 個組件
+widgets.rename=重新命名
+widgets.delete=刪除分類
+widgets.clearHotbar=清空快捷欄
+widgets.hotbarUsage=快捷欄已使用 {n}/9
+widgets.empty=還沒有分類，請在主頁的小工具面板中建立。
+widgets.renameTitle=重新命名分類
+widgets.newCategory=新增分類
+widgets.save=儲存
+
+## 重設與備份
+reset.desc=清空所有分類、組件、搜尋紀錄與設定，還原初始狀態。
+reset.all=重設所有設定為預設
+reset.backup=備份與還原
+reset.export=匯出備份
+reset.import=匯入備份
+reset.exportDone=備份已匯出。
+reset.importDone=備份已匯入。
+reset.importError=備份檔案無效。
+toast.saved=已儲存
+
+# —— 圖示選擇 / 搜尋相符 ——
+search.matches=相符的小工具
+form.iconLabel=圖示
+form.iconRefresh=重新取得
+form.iconUpload=上傳圖示
+form.iconFailed=找不到可用圖示，請從本機上傳
+nav.about=關於
+group.about=關於
+about.author=作者
+about.email=聯絡郵箱
+general.playerNamePlaceholder=留空則使用瀏覽器帳號名稱
+
+# —— 設定頁分組 ——
+group.general=一般
+group.appearance=外觀
+group.data=資料
+
+## 资源包 / Resource packs
+packs.desc=資源包會覆蓋介面貼圖、字型與文字，匯入後立即生效。
+packs.add=新增資源包
+packs.empty=尚未匯入資源包，點擊下方按鈕新增 .kzpack 檔案。
+packs.version=版本
+packs.statusOn=已啟用
+packs.statusOff=已停用
+packs.enable=啟用
+packs.disable=停用
+packs.up=上移
+packs.down=下移
+packs.delete=刪除資源包
+packs.deleteBody=刪除後這個資源包與其貼圖會被永久移除。
+packs.imported=資源包已匯入並啟用。
+packs.importError=無法讀取這個檔案，請確認它是有效的 .kzpack 壓縮檔。
+packs.badManifest=manifest.json 缺少或格式不正確，資源包被拒絕。
+packs.builtin=內建
+packs.uploadHint=支援 .kzpack / .zip，結構同 Minecraft 基岩版資源包。
+wallpaper.volumeLabel=音量
+wallpaper.clickForSound=點擊恢復聲音
+general.playerName=玩家名稱
+general.playerNameHint=顯示在主介面右上角的玩家名稱；留空則使用瀏覽器帳號名稱。

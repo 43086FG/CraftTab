@@ -1,0 +1,164 @@
+﻿## Minecraft Style New Tab — English (US)
+## Format: key=value, same as vanilla Minecraft .lang files
+
+## Main menu
+menu.search=Search
+menu.settings=Settings
+menu.widgets=Widgets
+
+## Search panel
+search.title=Find a page by keyword
+search.placeholder=Enter a search keyword…
+search.hint=Press Enter to search
+search.history=Search history
+search.clear=Clear history
+search.empty=No search history yet
+
+## Inventory
+inventory.title=Widgets
+inventory.searchPlaceholder=Search widgets
+inventory.newCategory=New category
+inventory.close=Close
+inventory.dragHint=Drag an icon out of the panel to delete it
+inventory.empty=This category is empty. Click + to add a widget.
+inventory.noMatch=No matching widgets
+inventory.hotbar=Hotbar
+inventory.welcomeTitle=Welcome back
+inventory.welcomeBody=You do not have any categories yet. Create one to start saving your favourite sites.
+inventory.welcomeAction=Create first category
+
+## Category
+category.createTitle=New category
+category.nameLabel=Category name
+category.namePlaceholder=e.g. Minecraft
+category.cancel=Cancel
+category.save=Create category
+
+## Add / edit form
+form.addTitle=Add widget
+form.editTitle=Edit widget
+form.nameLabel=Site name
+form.namePlaceholder=e.g. Minecraft Wiki
+form.urlLabel=URL
+form.urlPlaceholder=Enter a URL, e.g. minecraft.net
+form.cancelAdd=Cancel add
+form.saveAdd=Save add
+form.cancelEdit=Cancel edit
+form.saveEdit=Save changes
+form.errorName=Please enter a site name
+form.errorUrl=Please enter a valid URL
+
+## Delete confirmation
+delete.title=Are you sure?
+delete.body=If you delete this widget, it will be gone forever.
+delete.cancel=Cancel
+delete.confirm=Delete widget
+delete.categoryBody=If you delete this category, all of its widgets will be gone forever.
+delete.categoryConfirm=Delete category
+
+## Settings
+settings.title=Settings
+settings.back=Back
+nav.wallpaper=Wallpaper
+nav.general=General Settings
+nav.widgets=Widgets
+nav.language=Language
+nav.reset=Reset & backup
+nav.packs=Global Resources
+
+## Wallpaper
+wallpaper.localLabel=Local file (image, GIF or video)
+wallpaper.chooseFile=Choose file
+wallpaper.urlLabel=Web link
+wallpaper.urlPlaceholder=Paste an image, GIF or video link
+wallpaper.apply=Apply link
+wallpaper.restoreDefault=Restore default wallpaper
+wallpaper.current=Current wallpaper
+wallpaper.typeDefault=Default wallpaper
+wallpaper.typeImage=Image
+wallpaper.typeVideo=Video
+wallpaper.soundLabel=Wallpaper sound
+wallpaper.soundDesc=When enabled, video wallpapers play sound. Muted by default.
+wallpaper.fileHint=Supports JPG, PNG, GIF, MP4 and WebM, up to 24 MB per file.
+wallpaper.fileTooLarge=That file is too large. Please choose one under 24 MB.
+wallpaper.saveError=Could not save the wallpaper. Try a different file.
+
+## General
+general.searchEngine=Default search engine
+general.searchEngineDesc=The home page search panel uses the engine selected here.
+
+## Language
+language.desc=Choose the interface language. Every page updates instantly.
+language.current=Current language
+language.name.zh_CN=Simplified Chinese
+language.name.zh_TW=Traditional Chinese
+language.name.en=English
+language.name.ja=Japanese
+language.name.ko=Korean
+language.name.es=Spanish
+language.name.ru=Russian
+language.name.fr=French
+
+## Widgets settings
+widgets.desc=Manage your categories and hotbar. Deleting a category also removes its widgets.
+widgets.categories=Categories
+widgets.itemsCount={n} widgets
+widgets.rename=Rename
+widgets.delete=Delete category
+widgets.clearHotbar=Clear hotbar
+widgets.hotbarUsage=Hotbar slots used: {n}/9
+widgets.empty=No categories yet. Create one in the Widgets panel on the home page.
+widgets.renameTitle=Rename category
+widgets.newCategory=New category
+widgets.save=Save
+
+## Reset & backup
+reset.desc=Erase every category, widget, search history entry and setting, returning to the initial state.
+reset.all=Reset all settings to default
+reset.backup=Backup & restore
+reset.export=Export backup
+reset.import=Import backup
+reset.exportDone=Backup exported.
+reset.importDone=Backup imported.
+reset.importError=That backup file is not valid.
+toast.saved=Saved
+
+# —— 图标选择 / 搜索匹配 ——
+search.matches=Matching widgets
+form.iconLabel=Icon
+form.iconRefresh=Fetch icons
+form.iconUpload=Upload icon
+form.iconFailed=No usable icon found — upload one manually
+nav.about=About
+group.about=About
+about.author=Author
+about.email=Contact email
+general.playerNamePlaceholder=Leave empty to use your browser account name
+
+# —— Settings groups ——
+group.general=General
+group.appearance=Appearance
+group.data=Data
+
+## 资源包 / Resource packs
+packs.desc=Resource packs override interface textures, fonts and text. Changes apply immediately after import.
+packs.add=Add resource pack
+packs.empty=No resource packs imported yet. Use the button below to add a .kzpack file.
+packs.version=Version
+packs.statusOn=Enabled
+packs.statusOff=Disabled
+packs.enable=Enable
+packs.disable=Disable
+packs.up=Move up
+packs.down=Move down
+packs.delete=Delete pack
+packs.deleteBody=Deleting this pack permanently removes it and its textures.
+packs.imported=Resource pack imported and enabled.
+packs.importError=That file could not be read. Make sure it is a valid .kzpack archive.
+packs.badManifest=manifest.json is missing or invalid, so the pack was rejected.
+packs.builtin=Built-in
+packs.uploadHint=Supports .kzpack / .zip with the Minecraft Bedrock resource pack layout.
+wallpaper.volumeLabel=Volume
+wallpaper.clickForSound=Click to restore sound
+general.playerName=Player name
+general.playerNameHint=Shown at the top-right of the main screen; leave blank to use your browser account name.

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minecraft</title>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/settings.css">
+</head>
+<body class="settings-body">
+  <header class="settings-head">
+    <button type="button" class="back-button" id="btnBack">
+      <img class="back-arrow" data-tex="arrow_left" src="assets/arrow_left.png" alt="">
+      <span data-i18n="settings.back">返回</span>
+    </button>
+    <span class="head-title" id="headTitle"></span>
+  </header>
+
+  <div class="settings-shell">
+    <nav class="nav-band" id="navBand" aria-label="Settings"></nav>
+    <main class="settings-content mc-scroll" id="content"></main>
+  </div>
+
+  <div class="modal-backdrop" id="modalRoot" hidden></div>
+  <div class="mc-toast" id="toast"></div>
+
+  <script src="js/packs.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/settings.js"></script>
+</body>
+</html>

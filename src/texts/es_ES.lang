@@ -1,0 +1,164 @@
+﻿## Nueva pestaña estilo Minecraft — Español (España)
+## Formato: key=value, igual que los archivos .lang de Minecraft
+
+## Menú principal
+menu.search=Buscar
+menu.settings=Ajustes
+menu.widgets=Widgets
+
+## Panel de búsqueda
+search.title=Encuentra una página por palabra clave
+search.placeholder=Escribe una palabra clave…
+search.hint=Pulsa Enter para buscar
+search.history=Historial de búsquedas
+search.clear=Borrar historial
+search.empty=Todavía no hay historial
+
+## Inventario
+inventory.title=Widgets
+inventory.searchPlaceholder=Buscar widgets
+inventory.newCategory=Nueva categoría
+inventory.close=Cerrar
+inventory.dragHint=Arrastra un icono fuera del panel para eliminarlo
+inventory.empty=Esta categoría está vacía. Pulsa + para añadir un widget.
+inventory.noMatch=Ningún widget coincide
+inventory.hotbar=Barra rápida
+inventory.welcomeTitle=Bienvenido de nuevo
+inventory.welcomeBody=Aún no tienes categorías. Crea una para empezar a guardar tus sitios favoritos.
+inventory.welcomeAction=Crear la primera categoría
+
+## Categoría
+category.createTitle=Nueva categoría
+category.nameLabel=Nombre de la categoría
+category.namePlaceholder=p. ej. Minecraft
+category.cancel=Cancelar
+category.save=Crear categoría
+
+## Formulario de alta / edición
+form.addTitle=Añadir widget
+form.editTitle=Editar widget
+form.nameLabel=Nombre del sitio
+form.namePlaceholder=p. ej. Minecraft Wiki
+form.urlLabel=URL
+form.urlPlaceholder=Introduce una URL, p. ej. minecraft.net
+form.cancelAdd=Cancelar alta
+form.saveAdd=Guardar alta
+form.cancelEdit=Cancelar edición
+form.saveEdit=Guardar cambios
+form.errorName=Introduce el nombre del sitio
+form.errorUrl=Introduce una URL válida
+
+## Confirmación de borrado
+delete.title=¿Seguro?
+delete.body=Si eliminas este widget, desaparecerá para siempre.
+delete.cancel=Cancelar
+delete.confirm=Eliminar widget
+delete.categoryBody=Si eliminas esta categoría, todos sus widgets desaparecerán para siempre.
+delete.categoryConfirm=Eliminar categoría
+
+## Ajustes
+settings.title=Ajustes
+settings.back=Volver
+nav.wallpaper=Fondo
+nav.general=Ajustes generales
+nav.widgets=Widgets
+nav.language=Idioma
+nav.reset=Restablecer y copia
+nav.packs=Recursos globales
+
+## Fondo
+wallpaper.localLabel=Archivo local (imagen, GIF o vídeo)
+wallpaper.chooseFile=Elegir archivo
+wallpaper.urlLabel=Enlace web
+wallpaper.urlPlaceholder=Pega un enlace de imagen, GIF o vídeo
+wallpaper.apply=Aplicar enlace
+wallpaper.restoreDefault=Restaurar fondo predeterminado
+wallpaper.current=Fondo actual
+wallpaper.typeDefault=Fondo predeterminado
+wallpaper.typeImage=Imagen
+wallpaper.typeVideo=Vídeo
+wallpaper.soundLabel=Sonido del fondo
+wallpaper.soundDesc=Si se activa, los fondos de vídeo reproducen sonido. Silenciado por defecto.
+wallpaper.fileHint=Compatible con JPG, PNG, GIF, MP4 y WebM, hasta 24 MB por archivo.
+wallpaper.fileTooLarge=El archivo es demasiado grande. Elige uno de menos de 24 MB.
+wallpaper.saveError=No se pudo guardar el fondo. Prueba con otro archivo.
+
+## General
+general.searchEngine=Motor de búsqueda predeterminado
+general.searchEngineDesc=El panel de búsqueda de inicio usa el motor seleccionado aquí.
+
+## Idioma
+language.desc=Elige el idioma de la interfaz. Todas las páginas se actualizan al instante.
+language.current=Idioma actual
+language.name.zh_CN=Chino simplificado
+language.name.zh_TW=Chino tradicional
+language.name.en=Inglés
+language.name.ja=Japonés
+language.name.ko=Coreano
+language.name.es=Español
+language.name.ru=Ruso
+language.name.fr=Francés
+
+## Ajustes de widgets
+widgets.desc=Gestiona tus categorías y la barra rápida. Eliminar una categoría también borra sus widgets.
+widgets.categories=Categorías
+widgets.itemsCount={n} widgets
+widgets.rename=Renombrar
+widgets.delete=Eliminar categoría
+widgets.clearHotbar=Vaciar barra rápida
+widgets.hotbarUsage=Ranuras usadas: {n}/9
+widgets.empty=Aún no hay categorías. Crea una en el panel de widgets de la página de inicio.
+widgets.renameTitle=Renombrar categoría
+widgets.newCategory=Nueva categoría
+widgets.save=Guardar
+
+## Restablecer y copia
+reset.desc=Borra todas las categorías, widgets, búsquedas y ajustes, volviendo al estado inicial.
+reset.all=Restablecer todos los ajustes
+reset.backup=Copia de seguridad y restauración
+reset.export=Exportar copia
+reset.import=Importar copia
+reset.exportDone=Copia exportada.
+reset.importDone=Copia importada.
+reset.importError=El archivo de copia no es válido.
+toast.saved=Guardado
+
+# —— Selección de icono / coincidencias ——
+search.matches=Widgets coincidentes
+form.iconLabel=Icono
+form.iconRefresh=Obtener iconos
+form.iconUpload=Subir icono
+form.iconFailed=No se encontró ningún icono válido; súbelo manualmente
+nav.about=Acerca de
+group.about=Acerca de
+about.author=Autor
+about.email=Correo de contacto
+general.playerNamePlaceholder=Déjalo vacío para usar el nombre de tu cuenta del navegador
+
+# —— Grupos de ajustes ——
+group.general=General
+group.appearance=Apariencia
+group.data=Datos
+
+## 资源包 / Resource packs
+packs.desc=Los paquetes de recursos sobrescriben texturas, fuentes y textos. Se aplican al importar.
+packs.add=Añadir paquete
+packs.empty=Aún no hay paquetes. Usa el botón de abajo para añadir un .kzpack.
+packs.version=Versión
+packs.statusOn=Activado
+packs.statusOff=Desactivado
+packs.enable=Activar
+packs.disable=Desactivar
+packs.up=Subir
+packs.down=Bajar
+packs.delete=Eliminar paquete
+packs.deleteBody=Al eliminarlo, el paquete y sus texturas se borrarán para siempre.
+packs.imported=Paquete importado y activado.
+packs.importError=No se pudo leer el archivo. Comprueba que sea un .kzpack válido.
+packs.badManifest=Falta manifest.json o no es válido; paquete rechazado.
+packs.builtin=Integrado
+packs.uploadHint=Compatible con .kzpack / .zip, misma estructura que los paquetes de Minecraft Bedrock.
+wallpaper.volumeLabel=Volumen
+wallpaper.clickForSound=Haz clic para restaurar el sonido
+general.playerName=Nombre de jugador
+general.playerNameHint=Se muestra arriba a la derecha de la pantalla principal; si lo dejas vacío se usa el nombre de tu cuenta del navegador.

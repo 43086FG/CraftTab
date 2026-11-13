@@ -1,0 +1,164 @@
+﻿## Minecraft 风格新标签页 — 简体中文（中国）
+## 格式：key=value，与 Minecraft 原版 .lang 文件一致
+
+## 主菜单
+menu.search=搜索
+menu.settings=设置
+menu.widgets=小组件
+
+## 搜索面板
+search.title=按关键词查找网页
+search.placeholder=输入搜索关键词…
+search.hint=按 Enter 开始搜索
+search.history=搜索历史
+search.clear=清空历史
+search.empty=暂无搜索历史
+
+## 物品栏
+inventory.title=小组件
+inventory.searchPlaceholder=搜索组件
+inventory.newCategory=新建分类
+inventory.close=关闭
+inventory.dragHint=将图标拖出面板即可删除
+inventory.empty=这个分类还是空的，点击 + 添加组件
+inventory.noMatch=没有找到匹配的组件
+inventory.hotbar=快捷栏
+inventory.welcomeTitle=欢迎回来
+inventory.welcomeBody=你还没有任何分类。先创建一个分类，用来收藏你常用的网站吧。
+inventory.welcomeAction=创建第一个分类
+
+## 分类
+category.createTitle=新建分类
+category.nameLabel=分类名称
+category.namePlaceholder=例如：Minecraft
+category.cancel=取消创建
+category.save=创建分类
+
+## 添加 / 编辑表单
+form.addTitle=添加组件
+form.editTitle=更改组件
+form.nameLabel=网站名称
+form.namePlaceholder=例如：Minecraft Wiki
+form.urlLabel=网址
+form.urlPlaceholder=输入网址，例如 minecraft.net
+form.cancelAdd=取消添加
+form.saveAdd=保存添加
+form.cancelEdit=取消更改
+form.saveEdit=保存更改
+form.errorName=请输入网站名称
+form.errorUrl=请输入有效的网址
+
+## 删除确认
+delete.title=你确定吗？
+delete.body=如果你删除这个小组件，它将永远消失。
+delete.cancel=取消
+delete.confirm=删除组件
+delete.categoryBody=如果你删除这个分类，其中的所有小组件都将永远消失。
+delete.categoryConfirm=删除分类
+
+## 设置
+settings.title=设置
+settings.back=返回
+nav.wallpaper=壁纸
+nav.general=常规设置
+nav.widgets=小组件
+nav.language=语言
+nav.reset=重置与备份
+nav.packs=全局资源
+
+## 壁纸
+wallpaper.localLabel=本地文件（图片、GIF 或视频）
+wallpaper.chooseFile=选择文件
+wallpaper.urlLabel=网络链接
+wallpaper.urlPlaceholder=粘贴图片、GIF 或视频链接
+wallpaper.apply=应用链接
+wallpaper.restoreDefault=恢复默认壁纸
+wallpaper.current=当前壁纸
+wallpaper.typeDefault=默认壁纸
+wallpaper.typeImage=图片
+wallpaper.typeVideo=视频
+wallpaper.soundLabel=壁纸声音
+wallpaper.soundDesc=开启后视频壁纸将播放声音，默认静音。
+wallpaper.fileHint=支持 JPG、PNG、GIF、MP4、WebM，单个文件不超过 24 MB。
+wallpaper.fileTooLarge=文件太大，请选择不超过 24 MB 的文件。
+wallpaper.saveError=壁纸保存失败，请换一个文件再试。
+
+## 通用
+general.searchEngine=默认搜索引擎
+general.searchEngineDesc=主页搜索面板会使用这里选择的搜索引擎。
+
+## 语言
+language.desc=选择界面语言，切换后所有页面文字立即更新。
+language.current=当前语言
+language.name.zh_CN=简体中文
+language.name.zh_TW=繁體中文
+language.name.en=英语
+language.name.ja=日语
+language.name.ko=韩语
+language.name.es=西班牙语
+language.name.ru=俄语
+language.name.fr=法语
+
+## 小组件设置
+widgets.desc=管理分类和快捷栏。删除分类会同时移除其中的组件。
+widgets.categories=分类
+widgets.itemsCount={n} 个组件
+widgets.rename=重命名
+widgets.delete=删除分类
+widgets.clearHotbar=清空快捷栏
+widgets.hotbarUsage=快捷栏已使用 {n}/9
+widgets.empty=还没有分类，请在主页的小组件面板中创建。
+widgets.renameTitle=重命名分类
+widgets.newCategory=新建分类
+widgets.save=保存
+
+## 重置与备份
+reset.desc=清空所有分类、组件、搜索历史与设置，恢复初始状态。
+reset.all=重置所有设置为默认
+reset.backup=备份与恢复
+reset.export=导出备份
+reset.import=导入备份
+reset.exportDone=备份已导出。
+reset.importDone=备份已导入。
+reset.importError=备份文件无效。
+toast.saved=已保存
+
+# —— 图标选择 / 搜索匹配 ——
+search.matches=匹配的小组件
+form.iconLabel=图标
+form.iconRefresh=重新获取
+form.iconUpload=上传图标
+form.iconFailed=未找到可用图标，请从本地上传
+nav.about=关于
+group.about=关于
+about.author=作者
+about.email=联系邮箱
+general.playerNamePlaceholder=留空则使用浏览器账号名
+
+# —— 设置页分组 ——
+group.general=通用
+group.appearance=外观
+group.data=数据
+
+## 资源包 / Resource packs
+packs.desc=资源包会覆盖界面贴图、字体与文字，导入后立即生效。
+packs.add=添加资源包
+packs.empty=还没有导入资源包，点击下方按钮添加 .kzpack 文件。
+packs.version=版本
+packs.statusOn=已启用
+packs.statusOff=已停用
+packs.enable=启用
+packs.disable=停用
+packs.up=上移
+packs.down=下移
+packs.delete=删除资源包
+packs.deleteBody=删除后这个资源包及其贴图会被永久移除。
+packs.imported=资源包已导入并启用。
+packs.importError=无法读取这个文件，请确认它是有效的 .kzpack 压缩包。
+packs.badManifest=manifest.json 缺失或格式不正确，资源包被拒绝。
+packs.builtin=内置
+packs.uploadHint=支持 .kzpack / .zip，结构同 Minecraft 基岩版资源包。
+wallpaper.volumeLabel=音量
+wallpaper.clickForSound=点击恢复声音
+general.playerName=玩家名
+general.playerNameHint=显示在主界面右上角的玩家名；留空则使用浏览器账号名。

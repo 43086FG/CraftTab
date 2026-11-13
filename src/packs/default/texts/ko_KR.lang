@@ -1,0 +1,164 @@
+﻿## Minecraft 스타일 새 탭 — 한국어 (대한민국)
+## 형식: key=value (Minecraft 기본 .lang 파일과 동일)
+
+## 메인 메뉴
+menu.search=검색
+menu.settings=설정
+menu.widgets=위젯
+
+## 검색 패널
+search.title=키워드로 페이지 찾기
+search.placeholder=검색 키워드를 입력하세요…
+search.hint=Enter 키로 검색
+search.history=검색 기록
+search.clear=기록 지우기
+search.empty=검색 기록이 없습니다
+
+## 인벤토리
+inventory.title=위젯
+inventory.searchPlaceholder=위젯 검색
+inventory.newCategory=새 카테고리
+inventory.close=닫기
+inventory.dragHint=아이콘을 패널 밖으로 끌어 놓으면 삭제됩니다
+inventory.empty=이 카테고리는 비어 있습니다. + 를 눌러 위젯을 추가하세요.
+inventory.noMatch=일치하는 위젯이 없습니다
+inventory.hotbar=퀵 슬롯
+inventory.welcomeTitle=다시 오신 것을 환영합니다
+inventory.welcomeBody=아직 카테고리가 없습니다. 먼저 카테고리를 만들어 자주 쓰는 사이트를 저장해 보세요.
+inventory.welcomeAction=첫 카테고리 만들기
+
+## 카테고리
+category.createTitle=새 카테고리
+category.nameLabel=카테고리 이름
+category.namePlaceholder=예: Minecraft
+category.cancel=만들기 취소
+category.save=카테고리 만들기
+
+## 추가 / 편집 양식
+form.addTitle=위젯 추가
+form.editTitle=위젯 변경
+form.nameLabel=사이트 이름
+form.namePlaceholder=예: Minecraft Wiki
+form.urlLabel=URL
+form.urlPlaceholder=URL 입력 (예: minecraft.net)
+form.cancelAdd=추가 취소
+form.saveAdd=추가 저장
+form.cancelEdit=변경 취소
+form.saveEdit=변경 저장
+form.errorName=사이트 이름을 입력하세요
+form.errorUrl=올바른 URL을 입력하세요
+
+## 삭제 확인
+delete.title=정말 삭제할까요?
+delete.body=이 위젯을 삭제하면 영원히 사라집니다.
+delete.cancel=취소
+delete.confirm=위젯 삭제
+delete.categoryBody=이 카테고리를 삭제하면 안의 모든 위젯도 영원히 사라집니다.
+delete.categoryConfirm=카테고리 삭제
+
+## 설정
+settings.title=설정
+settings.back=뒤로
+nav.wallpaper=배경화면
+nav.general=일반 설정
+nav.widgets=위젯
+nav.language=언어
+nav.reset=초기화 및 백업
+nav.packs=전역 리소스
+
+## 배경화면
+wallpaper.localLabel=로컬 파일 (이미지, GIF, 동영상)
+wallpaper.chooseFile=파일 선택
+wallpaper.urlLabel=웹 링크
+wallpaper.urlPlaceholder=이미지, GIF 또는 동영상 링크 붙여넣기
+wallpaper.apply=링크 적용
+wallpaper.restoreDefault=기본 배경화면 복원
+wallpaper.current=현재 배경화면
+wallpaper.typeDefault=기본 배경화면
+wallpaper.typeImage=이미지
+wallpaper.typeVideo=동영상
+wallpaper.soundLabel=배경화면 소리
+wallpaper.soundDesc=켜면 동영상 배경화면의 소리가 재생됩니다. 기본은 음소거입니다.
+wallpaper.fileHint=JPG, PNG, GIF, MP4, WebM 지원, 파일당 최대 24 MB.
+wallpaper.fileTooLarge=파일이 너무 큽니다. 24 MB 이하 파일을 선택하세요.
+wallpaper.saveError=배경 화면을 저장하지 못했습니다. 다른 파일을 사용해 보세요.
+
+## 일반
+general.searchEngine=기본 검색 엔진
+general.searchEngineDesc=홈 검색 패널에서 여기서 선택한 검색 엔진을 사용합니다.
+
+## 언어
+language.desc=인터페이스 언어를 선택하세요. 모든 화면이 즉시 바뀝니다.
+language.current=현재 언어
+language.name.zh_CN=중국어(간체)
+language.name.zh_TW=중국어(번체)
+language.name.en=영어
+language.name.ja=일본어
+language.name.ko=한국어
+language.name.es=스페인어
+language.name.ru=러시아어
+language.name.fr=프랑스어
+
+## 위젯 설정
+widgets.desc=카테고리와 퀵 슬롯을 관리합니다. 카테고리를 삭제하면 안의 위젯도 함께 삭제됩니다.
+widgets.categories=카테고리
+widgets.itemsCount=위젯 {n}개
+widgets.rename=이름 변경
+widgets.delete=카테고리 삭제
+widgets.clearHotbar=퀵 슬롯 비우기
+widgets.hotbarUsage=퀵 슬롯 사용: {n}/9
+widgets.empty=카테고리가 없습니다. 홈의 위젯 패널에서 만들어 주세요.
+widgets.renameTitle=카테고리 이름 변경
+widgets.newCategory=새 카테고리
+widgets.save=저장
+
+## 초기화 및 백업
+reset.desc=모든 카테고리, 위젯, 검색 기록, 설정을 지우고 초기 상태로 돌아갑니다.
+reset.all=모든 설정을 기본값으로 초기화
+reset.backup=백업 및 복원
+reset.export=백업 내보내기
+reset.import=백업 가져오기
+reset.exportDone=백업을 내보냈습니다.
+reset.importDone=백업을 가져왔습니다.
+reset.importError=백업 파일이 올바르지 않습니다.
+toast.saved=저장했습니다
+
+# —— 아이콘 선택 / 검색 일치 ——
+search.matches=일치하는 위젯
+form.iconLabel=아이콘
+form.iconRefresh=아이콘 가져오기
+form.iconUpload=아이콘 업로드
+form.iconFailed=사용 가능한 아이콘을 찾지 못했습니다. 직접 업로드하세요
+nav.about=정보
+group.about=정보
+about.author=제작자
+about.email=연락 이메일
+general.playerNamePlaceholder=비워 두면 브라우저 계정 이름을 사용합니다
+
+# —— 설정 그룹 ——
+group.general=일반
+group.appearance=모양
+group.data=데이터
+
+## 资源包 / Resource packs
+packs.desc=리소스 팩은 화면 텍스처, 글꼴, 텍스트를 덮어씁니다. 가져오면 즉시 적용됩니다.
+packs.add=리소스 팩 추가
+packs.empty=아직 리소스 팩이 없습니다. 아래 버튼으로 .kzpack 파일을 추가하세요.
+packs.version=버전
+packs.statusOn=사용 중
+packs.statusOff=사용 안 함
+packs.enable=사용
+packs.disable=사용 안 함
+packs.up=위로
+packs.down=아래로
+packs.delete=팩 삭제
+packs.deleteBody=삭제하면 이 팩과 텍스처가 영구적으로 제거됩니다.
+packs.imported=리소스 팩을 가져와 사용 설정했습니다.
+packs.importError=파일을 읽을 수 없습니다. 올바른 .kzpack 압축 파일인지 확인하세요.
+packs.badManifest=manifest.json이 없거나 형식이 잘못되어 팩을 거부했습니다.
+packs.builtin=내장
+packs.uploadHint=.kzpack / .zip 지원. Minecraft 베드락 에디션 리소스 팩 구조와 같습니다.
+wallpaper.volumeLabel=음량
+wallpaper.clickForSound=클릭하여 소리 켜기
+general.playerName=플레이어 이름
+general.playerNameHint=메인 화면 오른쪽 위에 표시되는 플레이어 이름입니다. 비워 두면 브라우저 계정 이름을 사용합니다.

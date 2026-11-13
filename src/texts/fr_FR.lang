@@ -1,0 +1,164 @@
+﻿## Nouvel onglet style Minecraft — Français (France)
+## Format : key=value, comme les fichiers .lang de Minecraft
+
+## Menu principal
+menu.search=Rechercher
+menu.settings=Paramètres
+menu.widgets=Widgets
+
+## Panneau de recherche
+search.title=Trouver une page par mot-clé
+search.placeholder=Saisissez un mot-clé…
+search.hint=Appuyez sur Entrée pour rechercher
+search.history=Historique de recherche
+search.clear=Effacer l’historique
+search.empty=Aucun historique pour l’instant
+
+## Inventaire
+inventory.title=Widgets
+inventory.searchPlaceholder=Rechercher des widgets
+inventory.newCategory=Nouvelle catégorie
+inventory.close=Fermer
+inventory.dragHint=Faites glisser une icône hors du panneau pour la supprimer
+inventory.empty=Cette catégorie est vide. Cliquez sur + pour ajouter un widget.
+inventory.noMatch=Aucun widget correspondant
+inventory.hotbar=Barre rapide
+inventory.welcomeTitle=Bon retour
+inventory.welcomeBody=Vous n’avez encore aucune catégorie. Créez-en une pour enregistrer vos sites favoris.
+inventory.welcomeAction=Créer la première catégorie
+
+## Catégorie
+category.createTitle=Nouvelle catégorie
+category.nameLabel=Nom de la catégorie
+category.namePlaceholder=ex. Minecraft
+category.cancel=Annuler
+category.save=Créer la catégorie
+
+## Formulaire d’ajout / modification
+form.addTitle=Ajouter un widget
+form.editTitle=Modifier le widget
+form.nameLabel=Nom du site
+form.namePlaceholder=ex. Minecraft Wiki
+form.urlLabel=URL
+form.urlPlaceholder=Saisissez une URL, ex. minecraft.net
+form.cancelAdd=Annuler l’ajout
+form.saveAdd=Enregistrer
+form.cancelEdit=Annuler les modifications
+form.saveEdit=Enregistrer
+form.errorName=Veuillez saisir un nom de site
+form.errorUrl=Veuillez saisir une URL valide
+
+## Confirmation de suppression
+delete.title=Êtes-vous sûr ?
+delete.body=Si vous supprimez ce widget, il disparaîtra pour toujours.
+delete.cancel=Annuler
+delete.confirm=Supprimer le widget
+delete.categoryBody=Si vous supprimez cette catégorie, tous ses widgets disparaîtront pour toujours.
+delete.categoryConfirm=Supprimer la catégorie
+
+## Paramètres
+settings.title=Paramètres
+settings.back=Retour
+nav.wallpaper=Fond d’écran
+nav.general=Paramètres généraux
+nav.widgets=Widgets
+nav.language=Langue
+nav.reset=Réinitialiser et sauvegarde
+nav.packs=Ressources globales
+
+## Fond d’écran
+wallpaper.localLabel=Fichier local (image, GIF ou vidéo)
+wallpaper.chooseFile=Choisir un fichier
+wallpaper.urlLabel=Lien web
+wallpaper.urlPlaceholder=Collez un lien d’image, de GIF ou de vidéo
+wallpaper.apply=Appliquer le lien
+wallpaper.restoreDefault=Rétablir le fond par défaut
+wallpaper.current=Fond actuel
+wallpaper.typeDefault=Fond par défaut
+wallpaper.typeImage=Image
+wallpaper.typeVideo=Vidéo
+wallpaper.soundLabel=Son du fond
+wallpaper.soundDesc=Si activé, les fonds vidéo émettent du son. Muet par défaut.
+wallpaper.fileHint=Prend en charge JPG, PNG, GIF, MP4 et WebM, jusqu’à 24 Mo par fichier.
+wallpaper.fileTooLarge=Ce fichier est trop volumineux. Choisissez un fichier de moins de 24 Mo.
+wallpaper.saveError=Impossible d'enregistrer le fond d'écran. Essayez un autre fichier.
+
+## Général
+general.searchEngine=Moteur de recherche par défaut
+general.searchEngineDesc=Le panneau de recherche de l’accueil utilise le moteur choisi ici.
+
+## Langue
+language.desc=Choisissez la langue de l’interface. Toutes les pages se mettent à jour instantanément.
+language.current=Langue actuelle
+language.name.zh_CN=Chinois simplifié
+language.name.zh_TW=Chinois traditionnel
+language.name.en=Anglais
+language.name.ja=Japonais
+language.name.ko=Coréen
+language.name.es=Espagnol
+language.name.ru=Russe
+language.name.fr=Français
+
+## Paramètres des widgets
+widgets.desc=Gérez vos catégories et la barre rapide. Supprimer une catégorie supprime aussi ses widgets.
+widgets.categories=Catégories
+widgets.itemsCount={n} widgets
+widgets.rename=Renommer
+widgets.delete=Supprimer la catégorie
+widgets.clearHotbar=Vider la barre rapide
+widgets.hotbarUsage=Emplacements utilisés : {n}/9
+widgets.empty=Aucune catégorie. Créez-en une dans le panneau Widgets de l’accueil.
+widgets.renameTitle=Renommer la catégorie
+widgets.newCategory=Nouvelle catégorie
+widgets.save=Enregistrer
+
+## Réinitialiser et sauvegarde
+reset.desc=Efface toutes les catégories, widgets, recherches et paramètres, puis revient à l’état initial.
+reset.all=Réinitialiser tous les paramètres
+reset.backup=Sauvegarde et restauration
+reset.export=Exporter la sauvegarde
+reset.import=Importer la sauvegarde
+reset.exportDone=Sauvegarde exportée.
+reset.importDone=Sauvegarde importée.
+reset.importError=Ce fichier de sauvegarde est invalide.
+toast.saved=Enregistré
+
+# —— Sélection d'icône / correspondances ——
+search.matches=Widgets correspondants
+form.iconLabel=Icône
+form.iconRefresh=Récupérer les icônes
+form.iconUpload=Téléverser une icône
+form.iconFailed=Aucune icône valide trouvée — importez-en une manuellement
+nav.about=À propos
+group.about=À propos
+about.author=Auteur
+about.email=E-mail de contact
+general.playerNamePlaceholder=Laissez vide pour utiliser le nom de votre compte navigateur
+
+# —— Groupes de paramètres ——
+group.general=Général
+group.appearance=Apparence
+group.data=Données
+
+## 资源包 / Resource packs
+packs.desc=Les packs de ressources remplacent les textures, polices et textes de l'interface. Ils s'appliquent immédiatement.
+packs.add=Ajouter un pack
+packs.empty=Aucun pack importé. Utilisez le bouton ci-dessous pour ajouter un .kzpack.
+packs.version=Version
+packs.statusOn=Activé
+packs.statusOff=Désactivé
+packs.enable=Activer
+packs.disable=Désactiver
+packs.up=Monter
+packs.down=Descendre
+packs.delete=Supprimer le pack
+packs.deleteBody=Supprimer ce pack effacera définitivement ses textures.
+packs.imported=Pack importé et activé.
+packs.importError=Impossible de lire le fichier. Vérifiez qu'il s'agit d'un .kzpack valide.
+packs.badManifest=manifest.json manquant ou invalide, pack refusé.
+packs.builtin=Intégré
+packs.uploadHint=Prend en charge .kzpack / .zip, même structure que les packs Minecraft Bedrock.
+wallpaper.volumeLabel=Volume
+wallpaper.clickForSound=Cliquez pour rétablir le son
+general.playerName=Nom de joueur
+general.playerNameHint=Affiché en haut à droite de l'écran principal ; laissez vide pour utiliser le nom de votre compte navigateur.

@@ -1,0 +1,164 @@
+﻿## Новая вкладка в стиле Minecraft — Русский (Россия)
+## Формат: key=value, как в оригинальных .lang файлах Minecraft
+
+## Главное меню
+menu.search=Поиск
+menu.settings=Настройки
+menu.widgets=Виджеты
+
+## Панель поиска
+search.title=Найти страницу по ключевому слову
+search.placeholder=Введите ключевое слово…
+search.hint=Нажмите Enter для поиска
+search.history=История поиска
+search.clear=Очистить историю
+search.empty=История поиска пуста
+
+## Инвентарь
+inventory.title=Виджеты
+inventory.searchPlaceholder=Поиск виджетов
+inventory.newCategory=Новая категория
+inventory.close=Закрыть
+inventory.dragHint=Перетащите значок за пределы панели, чтобы удалить его
+inventory.empty=Категория пуста. Нажмите +, чтобы добавить виджет.
+inventory.noMatch=Подходящих виджетов нет
+inventory.hotbar=Быстрый доступ
+inventory.welcomeTitle=С возвращением
+inventory.welcomeBody=У вас ещё нет ни одной категории. Создайте первую и сохраняйте любимые сайты.
+inventory.welcomeAction=Создать первую категорию
+
+## Категория
+category.createTitle=Новая категория
+category.nameLabel=Название категории
+category.namePlaceholder=например, Minecraft
+category.cancel=Отменить
+category.save=Создать категорию
+
+## Форма добавления / изменения
+form.addTitle=Добавить виджет
+form.editTitle=Изменить виджет
+form.nameLabel=Название сайта
+form.namePlaceholder=например, Minecraft Wiki
+form.urlLabel=Ссылка
+form.urlPlaceholder=Введите ссылку, например minecraft.net
+form.cancelAdd=Отменить добавление
+form.saveAdd=Сохранить
+form.cancelEdit=Отменить изменение
+form.saveEdit=Сохранить изменения
+form.errorName=Введите название сайта
+form.errorUrl=Введите корректную ссылку
+
+## Подтверждение удаления
+delete.title=Вы уверены?
+delete.body=Если вы удалите этот виджет, он исчезнет навсегда.
+delete.cancel=Отмена
+delete.confirm=Удалить виджет
+delete.categoryBody=Если вы удалите эту категорию, все её виджеты исчезнут навсегда.
+delete.categoryConfirm=Удалить категорию
+
+## Настройки
+settings.title=Настройки
+settings.back=Назад
+nav.wallpaper=Обои
+nav.general=Общие настройки
+nav.widgets=Виджеты
+nav.language=Язык
+nav.reset=Сброс и резервная копия
+nav.packs=Глобальные ресурсы
+
+## Обои
+wallpaper.localLabel=Локальный файл (изображение, GIF или видео)
+wallpaper.chooseFile=Выбрать файл
+wallpaper.urlLabel=Веб-ссылка
+wallpaper.urlPlaceholder=Вставьте ссылку на изображение, GIF или видео
+wallpaper.apply=Применить ссылку
+wallpaper.restoreDefault=Вернуть стандартные обои
+wallpaper.current=Текущие обои
+wallpaper.typeDefault=Стандартные обои
+wallpaper.typeImage=Изображение
+wallpaper.typeVideo=Видео
+wallpaper.soundLabel=Звук обоев
+wallpaper.soundDesc=Если включено, видеообои воспроизводят звук. По умолчанию без звука.
+wallpaper.fileHint=Поддерживаются JPG, PNG, GIF, MP4 и WebM, до 24 МБ на файл.
+wallpaper.fileTooLarge=Файл слишком большой. Выберите файл до 24 МБ.
+wallpaper.saveError=Не удалось сохранить обои. Попробуйте другой файл.
+
+## Общие
+general.searchEngine=Поисковая система по умолчанию
+general.searchEngineDesc=Панель поиска на главной использует выбранную здесь систему.
+
+## Язык
+language.desc=Выберите язык интерфейса. Все страницы обновятся сразу.
+language.current=Текущий язык
+language.name.zh_CN=Китайский (упрощённый)
+language.name.zh_TW=Китайский (традиционный)
+language.name.en=Английский
+language.name.ja=Японский
+language.name.ko=Корейский
+language.name.es=Испанский
+language.name.ru=Русский
+language.name.fr=Французский
+
+## Настройки виджетов
+widgets.desc=Управление категориями и панелью быстрого доступа. Удаление категории удаляет и её виджеты.
+widgets.categories=Категории
+widgets.itemsCount=Виджетов: {n}
+widgets.rename=Переименовать
+widgets.delete=Удалить категорию
+widgets.clearHotbar=Очистить быстрый доступ
+widgets.hotbarUsage=Занято ячеек: {n}/9
+widgets.empty=Категорий пока нет. Создайте их на панели виджетов главной страницы.
+widgets.renameTitle=Переименовать категорию
+widgets.newCategory=Новая категория
+widgets.save=Сохранить
+
+## Сброс и резервная копия
+reset.desc=Удалить все категории, виджеты, историю поиска и настройки, вернувшись к началу.
+reset.all=Сбросить все настройки
+reset.backup=Резервная копия и восстановление
+reset.export=Экспорт копии
+reset.import=Импорт копии
+reset.exportDone=Копия экспортирована.
+reset.importDone=Копия импортирована.
+reset.importError=Файл копии недействителен.
+toast.saved=Сохранено
+
+# —— Выбор значка / совпадения ——
+search.matches=Подходящие виджеты
+form.iconLabel=Значок
+form.iconRefresh=Получить значки
+form.iconUpload=Загрузить значок
+form.iconFailed=Подходящий значок не найден — загрузите его вручную
+nav.about=О программе
+group.about=О программе
+about.author=Автор
+about.email=Эл. почта
+general.playerNamePlaceholder=Оставьте пустым — будет использовано имя учётной записи браузера
+
+# —— Группы настроек ——
+group.general=Общие
+group.appearance=Внешний вид
+group.data=Данные
+
+## 资源包 / Resource packs
+packs.desc=Пакеты ресурсов заменяют текстуры интерфейса, шрифты и тексты. Изменения применяются сразу.
+packs.add=Добавить пакет
+packs.empty=Пакетов пока нет. Нажмите кнопку ниже, чтобы добавить файл .kzpack.
+packs.version=Версия
+packs.statusOn=Включён
+packs.statusOff=Отключён
+packs.enable=Включить
+packs.disable=Отключить
+packs.up=Вверх
+packs.down=Вниз
+packs.delete=Удалить пакет
+packs.deleteBody=Пакет и его текстуры будут удалены навсегда.
+packs.imported=Пакет импортирован и включён.
+packs.importError=Не удалось прочитать файл. Убедитесь, что это допустимый архив .kzpack.
+packs.badManifest=manifest.json отсутствует или повреждён, пакет отклонён.
+packs.builtin=Встроенный
+packs.uploadHint=Поддерживаются .kzpack / .zip со структурой пакета Minecraft Bedrock.
+wallpaper.volumeLabel=Громкость
+wallpaper.clickForSound=Нажмите, чтобы включить звук
+general.playerName=Имя игрока
+general.playerNameHint=Отображается в правом верхнем углу главного экрана; если оставить пустым, используется имя учётной записи браузера.
