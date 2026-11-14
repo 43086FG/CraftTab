@@ -636,6 +636,18 @@
     return Array.from(map.values());
   }
 
+  /** 组件匹配文本：组件名 + 去掉协议头的网址（避免 https:// 里的字符造成误命中） */
+  function matchTexts(item) {
+    const url = String(item.url || '').replace(/^[a-z][a-z0-9+.-]*:\/\//i, '');
+    return [String(item.name || '').toLowerCase(), url.toLowerCase()];
+  }
+
+  /** 大小写不敏感的子串匹配：至少有一个字段包含完整关键词才算命中 */
+  function itemMatches(item, keyword) {
+    if (!keyword) return false;
+    return matchTexts(item).some((text) => text.includes(keyword));
+  }
+
   function renderSearchMatches(query) {
     const keyword = String(query || '').trim().toLowerCase();
     el.matchList.innerHTML = '';
@@ -643,10 +655,7 @@
       el.searchMatches.hidden = true;
       return;
     }
-    const hits = savedItems().filter((item) => (
-      (item.name || '').toLowerCase().includes(keyword) ||
-      (item.url || '').toLowerCase().includes(keyword)
-    )).slice(0, 6);
+    const hits = savedItems().filter((item) => itemMatches(item, keyword)).slice(0, 6);
     if (!hits.length) {
       el.searchMatches.hidden = true;
       return;
@@ -1108,9 +1117,7 @@
     const items = category ? category.items : [];
     const query = invQuery.trim().toLowerCase();
     const filtered = query
-      ? items.filter((item) =>
-          (item.name || '').toLowerCase().includes(query) ||
-          (item.url || '').toLowerCase().includes(query))
+      ? items.filter((item) => itemMatches(item, query))
       : items;
 
     el.grid.innerHTML = '';
