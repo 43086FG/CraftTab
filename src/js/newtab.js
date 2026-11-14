@@ -663,12 +663,8 @@
       const host = document.createElement('span');
       host.className = 'match-host';
       host.textContent = MCStore.hostOf(item.url) || item.url;
-      /* 图标必须放进固定尺寸容器：.slot-icon 是绝对定位（用于格子），
-         直接放进 flex 行会以视口为包含块铺满全屏 */
-      const iconWrap = document.createElement('span');
-      iconWrap.className = 'match-icon';
-      iconWrap.appendChild(makeIcon(item));
-      button.appendChild(iconWrap);
+      /* makeIcon 自带固定尺寸图标容器，列表行直接复用 */
+      button.appendChild(makeIcon(item));
       button.appendChild(name);
       button.appendChild(host);
       button.addEventListener('click', () => openSavedMatch(item));
@@ -872,6 +868,12 @@
     const record = { name: item.name, url: item.url, env: HAS_EXTENSION ? 'extension' : 'preview', attempts: [], final: '' };
     iconReport.push(record);
 
+    /* 所有动态图标统一装进固定尺寸、overflow:hidden 的定位容器，
+       避免绝对定位的 .slot-icon 以视口/弹窗为包含块撑破布局 */
+    const frame = document.createElement('span');
+    frame.className = 'icon-frame';
+    frame.setAttribute('aria-hidden', 'true');
+
     const img = document.createElement('img');
     img.className = 'slot-icon';
     img.alt = '';
@@ -957,8 +959,9 @@
       next();
     });
 
+    frame.appendChild(img);
     next();
-    return img;
+    return frame;
   }
 
   function updateGridScrollbar() {

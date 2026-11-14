@@ -128,6 +128,8 @@
   border-image: var(--tex_panel_dim, url('../assets/vanilla/panel_dim.png')) 4 / 8rem stretch;
   image-rendering: pixelated;
   animation: mcPop .16s steps(2, end) both;
+  overflow: hidden;
+  isolation: isolate;
   z-index: 5;
 }
 
@@ -209,24 +211,25 @@
   overflow: hidden;
 }
 
-/* 匹配项图标容器：固定 20×20，禁止被大尺寸图标撑开 */
-.match-icon {
+/* 图标容器：固定 20×20、裁剪溢出，任何异常比例/超大图都不会撑破布局 */
+.icon-frame {
   position: relative;
+  display: block;
   flex: 0 0 20rem;
   width: 20rem;
   height: 20rem;
   overflow: hidden;
+  pointer-events: none;
 }
 
-/* 覆盖格子用的绝对定位，让同一套 makeIcon 在列表行里按 20rem 渲染 */
-.match-icon .slot-icon,
-.search-panel .slot-icon {
-  position: static;
-  display: block;
-  width: 20rem;
-  height: 20rem;
-  max-width: 20rem;
-  max-height: 20rem;
+/* 图标本体绝对铺满容器并等比缩放，尺寸不受图片原始分辨率影响 */
+.icon-frame > .slot-icon {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
   flex-shrink: 0;
 }
@@ -822,9 +825,20 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
   image-rendering: pixelated;
   pointer-events: none;
+}
+
+/* 格子内的图标容器：铺满整个槽位，内部图标等比缩放 */
+.slot > .icon-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  flex: none;
 }
 
 /* 图标来源角标：仅在 ?iconDebug=1 或 localStorage.mcIconDebug=1 时出现 */

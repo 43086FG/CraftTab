@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Minecraft 新标签页",
   "short_name": "MC New Tab",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Minecraft 风格的启动页与新标签页：壁纸、搜索、小组件物品栏。",
   "icons": {
     "16": "icons/icon16.png",

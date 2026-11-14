@@ -4,7 +4,7 @@
 
 A Minecraft Bedrock-style new tab page for Edge and Chrome. Manifest V3, plain HTML/CSS/JS, no build step required.
 
-Current version: **1.0.1** — see [release notes](docs/release-notes-v1.0.1.md).
+Current version: **1.0.2** — see [release notes](https://github.com/43086FG/CraftTab/releases/tag/1.0.2).
 
 ![CraftTab main menu](docs/screenshot-main-menu.png)
 

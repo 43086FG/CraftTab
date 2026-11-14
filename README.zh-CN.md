@@ -4,7 +4,7 @@
 
 Minecraft 基岩版风格的 Edge / Chrome 新标签页扩展。Manifest V3，原生 HTML/CSS/JS，无需构建即可加载。
 
-当前版本：**1.0.1**，更新说明见 [release notes](docs/release-notes-v1.0.1.md)。
+当前版本：**1.0.2**，更新说明见 [release notes](https://github.com/43086FG/CraftTab/releases/tag/1.0.2)。
 
 ![CraftTab 主界面](docs/screenshot-main-menu.png)
 

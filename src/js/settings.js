@@ -25,7 +25,7 @@
     } catch (err) {
       /* 预览环境没有扩展 API */
     }
-    return '1.0.1';
+    return '1.0.2';
   })();
 
   const NAV_ICONS = {
