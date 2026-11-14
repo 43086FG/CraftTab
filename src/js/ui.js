@@ -5,8 +5,25 @@
 const MCUI = (() => {
   const DEFAULT_ICON = 'assets/missing_texture.png';
 
+  /** 紫黑占位图的稳定标识：可被用户明确选中并保存，不随资源包 ObjectURL 失效 */
+  const MISSING_ICON = 'missing_texture';
+
+  /** 缺失贴图的最终兜底地址：固定使用项目内置静态资源，
+      避免资源包重载时 ObjectURL 被 revoke 导致占位图变透明 */
   function defaultIcon() {
-    return (typeof MCPacks !== 'undefined') ? MCPacks.tex('missing_texture') : DEFAULT_ICON;
+    return DEFAULT_ICON;
+  }
+
+  /** 把存储的图标值解析成可显示的地址 */
+  function resolveIcon(value) {
+    return value === MISSING_ICON ? defaultIcon() : value;
+  }
+
+  /** 把图标固定到 missing_texture：只替换一次，之后的加载失败不再触发新请求 */
+  function lockFallback(img) {
+    if (!img || img.dataset.mcFallback === '1') return;
+    img.dataset.mcFallback = '1';
+    img.src = defaultIcon();
   }
 
   /* ---------------- 图标候选 ---------------- */
@@ -153,7 +170,7 @@ const MCUI = (() => {
     function addCell(value, src) {
       const cell = document.createElement('button');
       cell.type = 'button';
-      /* 空值代表 missing 占位，未主动点选时不应显示为已选中 */
+      /* MISSING_ICON 是明确的占位图选项，与「尚未选择」的空值区分开 */
       cell.className = 'icon-cell' + (value && value === selected ? ' is-selected' : '');
       cell.dataset.icon = value;
       const img = document.createElement('img');
@@ -165,7 +182,7 @@ const MCUI = (() => {
       img.addEventListener('error', () => {
         cell.classList.remove('is-loading');
         cell.dataset.failed = '1';
-        if (img.src.indexOf(defaultIcon()) === -1) img.src = defaultIcon();
+        lockFallback(img);
       });
       cell.appendChild(img);
       cell.addEventListener('click', () => {
@@ -183,8 +200,8 @@ const MCUI = (() => {
       const pageUrl = MCStore.normalizeUrl(url);
       hint.hidden = true;
       gridEl.innerHTML = '';
-      if (selected) addCell(selected, selected);
-      addCell('', defaultIcon());
+      if (selected && selected !== MISSING_ICON) addCell(selected, resolveIcon(selected));
+      addCell(MISSING_ICON, defaultIcon());
       if (!pageUrl) {
         hint.textContent = t('form.iconFailed');
         hint.hidden = false;
@@ -192,7 +209,7 @@ const MCUI = (() => {
       }
       const shown = new Set();
       const list = await discoverIcons(url, force, (item) => {
-        if (token !== renderToken || shown.has(item.src)) return;
+        if (token !== renderToken || shown.has(item.src) || item.src === selected) return;
         shown.add(item.src);
         addCell(item.src, item.src);
       }, () => token !== renderToken);
@@ -560,7 +577,7 @@ const MCUI = (() => {
     });
   }
 
-  return { ICON: BTN_ICON, btnIcon, defaultIcon, isOpen, close, toast, openItemForm, openCategoryForm, openMessage, openConfirm };
+  return { ICON: BTN_ICON, MISSING_ICON, btnIcon, defaultIcon, resolveIcon, lockFallback, isOpen, close, toast, openItemForm, openCategoryForm, openMessage, openConfirm };
 })();
 
 /* 以 1024×768 为基准等比缩放整页（rem = --u） */

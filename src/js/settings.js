@@ -527,7 +527,7 @@
           const iconImg = document.createElement('img');
           iconImg.className = 'cat-icon';
           iconImg.alt = '';
-          iconImg.src = category.icon;
+          iconImg.src = MCUI.resolveIcon(category.icon);
           row.appendChild(iconImg);
         }
         append(row,

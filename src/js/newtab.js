@@ -852,7 +852,7 @@
       tabIcon.alt = '';
       tabIcon.draggable = false;
       const fallback = MCUI.defaultIcon();
-      tabIcon.src = category.icon || fallback;
+      tabIcon.src = MCUI.resolveIcon(category.icon) || fallback;
       tabIcon.addEventListener('error', () => {
         if (tabIcon.src.indexOf(fallback) === -1) tabIcon.src = fallback;
       });
@@ -906,25 +906,9 @@
     return url;
   }
 
-  /** 槽位图标候选：站点 /favicon.ico 优先，公共图标服务只作兜底 */
-  function iconSources(item) {
-    const list = [];
-    if (item.icon) list.push({ url: item.icon, tag: 'custom' });
-    let origin = '';
-    try {
-      origin = new URL(item.url).origin + '/favicon.ico';
-    } catch (err) {
-      origin = '';
-    }
-    if (origin) list.push({ url: origin, tag: 'origin-favicon' });
-    const host = MCStore.hostOf(item.url);
-    if (host) {
-      list.push({ url: 'https://favicon.im/' + host + '?larger=true', tag: 'favicon.im' });
-      list.push({ url: 'https://favicon.yandex.net/favicon/' + host, tag: 'yandex' });
-      list.push({ url: 'https://icons.duckduckgo.com/ip3/' + host + '.ico', tag: 'duckduckgo' });
-      list.push({ url: MCStore.faviconUrl(item.url, 64), tag: 'google-s2' });
-    }
-    return list;
+  /** 默认展示只认用户明确选择过的图标；自动抓取结果只进编辑处的候选，不影响展示 */
+  function chosenIcon(item) {
+    return typeof item.icon === 'string' ? item.icon.trim() : '';
   }
 
   function setDebugBadge(img, tag) {
@@ -946,7 +930,9 @@
 
   function makeIcon(item) {
     const fallback = MCUI.defaultIcon();
-    const sources = iconSources(item);
+    const chosen = chosenIcon(item);
+    const isMissingChoice = chosen === MCUI.MISSING_ICON;
+    const sources = (chosen && !isMissingChoice) ? [{ url: chosen, tag: 'custom' }] : [];
     const record = { name: item.name, url: item.url, env: HAS_EXTENSION ? 'extension' : 'preview', attempts: [], final: '' };
     iconReport.push(record);
 
@@ -961,6 +947,14 @@
     img.alt = '';
     img.referrerPolicy = 'no-referrer';
     img.decoding = 'async';
+    /* 可见图标始终先落在缺失贴图上：探测期间不空白，也不显示浏览器坏图标 */
+    img.src = fallback;
+    img.dataset.mcFallback = '1';
+
+    /* 候选先用不可见的 Image 探针验证，成功后才替换可见图标 */
+    const probe = new Image();
+    probe.referrerPolicy = 'no-referrer';
+    probe.decoding = 'async';
 
     let index = 0;
     let timer = 0;
@@ -976,17 +970,19 @@
       return Math.max(1200, Math.min(ICON_TIMEOUT_MS, left));
     };
 
-    const finish = (tag) => {
+    const finish = (tag, quiet) => {
       if (done) return;
       done = true;
       clearTimeout(timer);
       record.final = tag;
       const count = record.attempts.length;
       const ok = record.attempts.filter((a) => a.result === 'ok').length;
-      if (tag === 'missing') {
-        console.warn(label + ' → missing（' + count + ' 个地址均失败）', record.attempts);
-      } else {
-        console.log(label + ' → ' + tag + '（成功 ' + ok + '/' + count + '）', record.attempts);
+      if (!quiet) {
+        if (tag === 'missing') {
+          console.warn(label + ' → missing（' + count + ' 个地址均失败）', record.attempts);
+        } else {
+          console.log(label + ' → ' + tag + '（成功 ' + ok + '/' + count + '）', record.attempts);
+        }
       }
       setDebugBadge(img, tag);
     };
@@ -997,14 +993,14 @@
       const attempt = current();
       if (attempt && reason) attempt.result = reason;
       if (index >= sources.length) {
-        if (img.getAttribute('src') !== fallback) img.src = fallback;
+        /* 候选耗尽：可见图标仍停在占位图，直接终止，不再发起任何请求 */
         finish('missing');
         return;
       }
       const source = sources[index++];
       record.attempts.push({ tag: source.tag, url: source.url, result: 'pending' });
       console.log(label + ' 尝试 ' + index + '/' + sources.length + ' [' + source.tag + '] ' + shortUrl(source.url));
-      img.src = source.url;
+      probe.src = source.url;
       const wait = nextTimeout();
       timer = setTimeout(() => {
         const pending = current();
@@ -1015,23 +1011,26 @@
       }, wait);
     };
 
-    img.addEventListener('load', () => {
+    probe.addEventListener('load', () => {
       if (done) return;
       clearTimeout(timer);
       const attempt = current();
       if (!attempt) return;
-      if (!img.naturalWidth) {
+      if (!probe.naturalWidth) {
         attempt.result = 'empty';
         console.warn(label + ' [' + attempt.tag + '] 解码为空：' + shortUrl(attempt.url));
         next();
         return;
       }
       attempt.result = 'ok';
-      attempt.size = img.naturalWidth + 'x' + img.naturalHeight;
+      attempt.size = probe.naturalWidth + 'x' + probe.naturalHeight;
+      /* 只有验证成功的候选才替换可见图标，失败候选不会造成坏图标闪烁 */
+      img.src = attempt.url;
+      delete img.dataset.mcFallback;
       finish(attempt.tag);
     });
 
-    img.addEventListener('error', () => {
+    probe.addEventListener('error', () => {
       if (done) return;
       clearTimeout(timer);
       const attempt = current();
@@ -1042,6 +1041,11 @@
     });
 
     frame.appendChild(img);
+    if (!sources.length) {
+      /* 未选择图标或明确选了占位图：直接停在 missing_texture，不发起任何抓取请求 */
+      finish('missing', true);
+      return frame;
+    }
     next();
     return frame;
   }
