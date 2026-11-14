@@ -17,7 +17,7 @@ CraftTab 是一个 Minecraft 风格的新标签页扩展。我们不收集、不
 
 - 设置项：语言、壁纸选择、音量与声音开关、玩家名、默认搜索引擎等。
 - 搜索历史，以及小组件与分类（含自定义名称和图标）。
-- 壁纸文件与导入的 `.kzpack` 资源包。
+- 壁纸文件与导入的 `.mcpack` / `.zip` 资源包。
 - 备份文件只有在你主动导出时才会生成到你选择的位置。
 
 扩展**不读取、不存储书签**，也未申请书签、历史记录、标签页或 Cookie 权限。
@@ -65,7 +65,7 @@ The following stays on your device only (`chrome.storage.local` or browser Index
 
 - Settings: language, wallpaper choice, volume and sound toggle, player name, default search engine.
 - Search history, widgets and categories (including custom names and icons).
-- Wallpaper files and imported `.kzpack` resource packs.
+- Wallpaper files and imported `.mcpack` / `.zip` resource packs.
 - Backup files are created only when you explicitly export them to a location you choose.
 
 The extension **does not read or store bookmarks**, and it does not request bookmarks, history, tabs or cookies permissions.

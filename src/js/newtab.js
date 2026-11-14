@@ -19,6 +19,9 @@
   let soundUnlockBound = false;
   let audioUnlocked = false;
   let bgToken = 0;
+  const TAB_PAGE_SIZE = 4;
+  let tabPage = 0;
+  let tooltipTarget = null;
 
   boot();
 
@@ -34,6 +37,8 @@
     el.searchField = document.getElementById('searchField');
     el.historyList = document.getElementById('historyList');
     el.historyEmpty = document.getElementById('historyEmpty');
+    el.historyScrollbar = document.getElementById('historyScrollbar');
+    el.historyScrollThumb = document.getElementById('historyScrollThumb');
     el.btnClearHistory = document.getElementById('btnClearHistory');
     el.searchProvider = document.getElementById('searchProvider');
     el.searchMatches = document.getElementById('searchMatches');
@@ -45,9 +50,13 @@
     el.btnNewCategory = document.getElementById('btnNewCategory');
     el.inventorySearch = document.getElementById('inventorySearch');
     el.btnInventoryClose = document.getElementById('btnInventoryClose');
-    el.btnInventoryHelp = document.getElementById('btnInventoryHelp');
-    el.categoryLabel = null;
+    el.tabPrev = document.getElementById('tabPrev');
+    el.tabNext = document.getElementById('tabNext');
+    el.categoryLabel = document.getElementById('inventoryCategoryLabel');
+    el.tooltip = document.getElementById('slotTooltip');
     el.grid = document.getElementById('inventoryGrid');
+    el.gridScrollbar = document.getElementById('gridScrollbar');
+    el.gridThumb = document.getElementById('gridScrollThumb');
     el.hotbar = document.getElementById('hotbar');
   }
 
@@ -488,6 +497,8 @@
 
     history.forEach((term) => {
       const li = document.createElement('li');
+      li.draggable = true;
+      li.dataset.term = term;
       const button = document.createElement('button');
       button.type = 'button';
       button.className = 'history-item';
@@ -495,7 +506,119 @@
       button.title = term;
       button.addEventListener('click', () => performSearch(term));
       li.appendChild(button);
+
+      li.addEventListener('dragstart', (e) => {
+        historyDrag = { term: term, li: li };
+        li.classList.add('is-dragging');
+        e.dataTransfer.effectAllowed = 'move';
+        try {
+          e.dataTransfer.setData('text/plain', term);
+        } catch (err) {
+          /* 部分环境不允许写自定义拖拽数据 */
+        }
+      });
+      li.addEventListener('dragend', (e) => {
+        const wasOut = li.classList.contains('is-drag-out');
+        li.classList.remove('is-dragging', 'is-drag-out');
+        if (historyDrag && historyDrag.term === term && wasOut) removeHistoryTerm(term);
+        historyDrag = null;
+      });
+
       el.historyList.appendChild(li);
+    });
+    updateHistoryScrollbar();
+  }
+
+  /** 拖出列表区域并松开即删除，不弹确认也不提示 */
+  function removeHistoryTerm(term) {
+    const list = state.searchHistory || [];
+    const index = list.indexOf(term);
+    if (index === -1) return;
+    list.splice(index, 1);
+    persist();
+    renderSearchHistory();
+  }
+
+  let historyDrag = null;
+
+  function historyPointerOutside(x, y) {
+    if (!el.historyScrollbar || !historyDrag) return true;
+    const rect = el.historyScrollbar.parentNode.getBoundingClientRect();
+    const pad = 6;
+    return x < rect.left - pad || x > rect.right + pad || y < rect.top - pad || y > rect.bottom + pad;
+  }
+
+  function trackHistoryDrag(e) {
+    if (!historyDrag) return;
+    const outside = historyPointerOutside(e.clientX, e.clientY);
+    historyDrag.li.classList.toggle('is-drag-out', outside);
+  }
+
+  function updateHistoryScrollbar() {
+    if (!el.historyList || !el.historyScrollbar || !el.historyScrollThumb) return;
+    const view = el.historyList.clientHeight;
+    const content = el.historyList.scrollHeight;
+    if (content <= view + 1) {
+      el.historyScrollbar.hidden = true;
+      return;
+    }
+    el.historyScrollbar.hidden = false;
+    const trackH = el.historyScrollbar.clientHeight;
+    const thumbH = Math.max(28, Math.round(trackH * view / content));
+    const maxScroll = content - view;
+    const maxTop = Math.max(0, trackH - thumbH);
+    const top = maxScroll ? (el.historyList.scrollTop / maxScroll) * maxTop : 0;
+    el.historyScrollThumb.style.height = thumbH + 'px';
+    el.historyScrollThumb.style.top = top + 'px';
+  }
+
+  let historyScrollDrag = null;
+
+  function bindHistoryScrollbar() {
+    if (!el.historyList || !el.historyScrollbar || !el.historyScrollThumb) return;
+
+    el.historyList.addEventListener('scroll', updateHistoryScrollbar);
+    window.addEventListener('resize', updateHistoryScrollbar);
+
+    el.historyScrollThumb.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      historyScrollDrag = {
+        startY: e.clientY,
+        startTop: parseFloat(el.historyScrollThumb.style.top) || 0
+      };
+      el.historyScrollThumb.classList.add('is-dragging');
+      el.historyScrollThumb.setPointerCapture(e.pointerId);
+    });
+
+    el.historyScrollThumb.addEventListener('pointermove', (e) => {
+      if (!historyScrollDrag) return;
+      const trackH = el.historyScrollbar.clientHeight;
+      const thumbH = el.historyScrollThumb.offsetHeight;
+      const maxTop = Math.max(1, trackH - thumbH);
+      const maxScroll = el.historyList.scrollHeight - el.historyList.clientHeight;
+      const nextTop = Math.min(maxTop, Math.max(0, historyScrollDrag.startTop + (e.clientY - historyScrollDrag.startY)));
+      el.historyList.scrollTop = (nextTop / maxTop) * maxScroll;
+      updateHistoryScrollbar();
+    });
+
+    const endDrag = () => {
+      if (!historyScrollDrag) return;
+      historyScrollDrag = null;
+      el.historyScrollThumb.classList.remove('is-dragging');
+    };
+    el.historyScrollThumb.addEventListener('pointerup', endDrag);
+    el.historyScrollThumb.addEventListener('pointercancel', endDrag);
+
+    el.historyScrollbar.addEventListener('pointerdown', (e) => {
+      if (e.target === el.historyScrollThumb) return;
+      const rect = el.historyScrollbar.getBoundingClientRect();
+      const trackH = el.historyScrollbar.clientHeight;
+      const thumbH = el.historyScrollThumb.offsetHeight;
+      const maxTop = Math.max(1, trackH - thumbH);
+      const maxScroll = el.historyList.scrollHeight - el.historyList.clientHeight;
+      const target = Math.min(maxTop, Math.max(0, e.clientY - rect.top - thumbH / 2));
+      el.historyList.scrollTop = (target / maxTop) * maxScroll;
+      updateHistoryScrollbar();
     });
   }
 
@@ -597,6 +720,8 @@
     if (el.playerName) el.playerName.style.visibility = 'hidden';
     invQuery = '';
     el.inventorySearch.value = '';
+    const index = state.categories.findIndex((category) => category.id === state.activeCategoryId);
+    tabPage = index > 0 ? Math.floor(index / TAB_PAGE_SIZE) : 0;
     el.inventoryOverlay.hidden = false;
     renderInventory();
     if (!state.categories.length) {
@@ -612,19 +737,26 @@
     el.inventoryOverlay.hidden = true;
     invQuery = '';
     el.inventorySearch.value = '';
+    hideSlotTooltip();
     el.hotbar.classList.remove('is-drag-over');
     el.btnWidgets.focus();
   }
 
   function renderInventory() {
+    hideSlotTooltip();
     renderTabs();
     renderGrid();
     renderHotbar();
   }
 
+  /* 每页最多 4 个页签；超过时用左右箭头翻页，不横向滚动 */
   function renderTabs() {
     el.tabStrip.innerHTML = '';
-    state.categories.forEach((category) => {
+    const pageCount = Math.max(1, Math.ceil(state.categories.length / TAB_PAGE_SIZE));
+    tabPage = Math.max(0, Math.min(tabPage, pageCount - 1));
+    const visible = state.categories.slice(tabPage * TAB_PAGE_SIZE, tabPage * TAB_PAGE_SIZE + TAB_PAGE_SIZE);
+
+    visible.forEach((category) => {
       const button = document.createElement('button');
       button.type = 'button';
       button.className = 'category-tab';
@@ -644,21 +776,252 @@
       button.appendChild(tabIcon);
       el.tabStrip.appendChild(button);
     });
+
+    if (el.tabPrev) el.tabPrev.hidden = pageCount <= 1 || tabPage === 0;
+    if (el.tabNext) el.tabNext.hidden = pageCount <= 1 || tabPage >= pageCount - 1;
+
+    /* 面板右上角显示当前选中分类名，翻页 / 切换分类 / 切换语言都会重算 */
+    if (el.categoryLabel) {
+      const category = activeCategory();
+      el.categoryLabel.textContent = category ? category.name : t('inventory.title');
+    }
+  }
+
+  /* 扩展环境探测：预览页没有 chrome.* 扩展 API，只能走纯前端 <img> 链路 */
+  const HAS_EXTENSION = (() => {
+    try {
+      return typeof chrome !== 'undefined' && !!chrome.runtime && !!chrome.runtime.id;
+    } catch (err) {
+      return false;
+    }
+  })();
+
+  const ICON_TIMEOUT_MS = 4000;
+  const ICON_BUDGET_MS = 12000;
+
+  /* 图标加载诊断：控制台随时可查，地址栏加 ?iconDebug=1 或在控制台执行
+     localStorage.setItem('mcIconDebug','1') 后，槽位右上角会显示最终来源 */
+  const ICON_DEBUG = (() => {
+    try {
+      return location.search.indexOf('iconDebug=1') !== -1 || localStorage.getItem('mcIconDebug') === '1';
+    } catch (err) {
+      return false;
+    }
+  })();
+
+  const iconReport = [];
+  window.mcIconReport = () => iconReport.map((row) => ({
+    name: row.name,
+    url: row.url,
+    final: row.final,
+    attempts: row.attempts.map((a) => a.tag + ':' + a.result + (a.size ? '(' + a.size + ')' : '')).join(' | ')
+  }));
+
+  function shortUrl(url) {
+    if (!url) return '-';
+    if (/^data:/i.test(url)) return 'data:' + url.slice(5, 20) + '…';
+    return url;
+  }
+
+  /** 槽位图标候选：站点 /favicon.ico 优先，公共图标服务只作兜底 */
+  function iconSources(item) {
+    const list = [];
+    if (item.icon) list.push({ url: item.icon, tag: 'custom' });
+    let origin = '';
+    try {
+      origin = new URL(item.url).origin + '/favicon.ico';
+    } catch (err) {
+      origin = '';
+    }
+    if (origin) list.push({ url: origin, tag: 'origin-favicon' });
+    const host = MCStore.hostOf(item.url);
+    if (host) {
+      list.push({ url: 'https://favicon.im/' + host + '?larger=true', tag: 'favicon.im' });
+      list.push({ url: 'https://favicon.yandex.net/favicon/' + host, tag: 'yandex' });
+      list.push({ url: 'https://icons.duckduckgo.com/ip3/' + host + '.ico', tag: 'duckduckgo' });
+      list.push({ url: MCStore.faviconUrl(item.url, 64), tag: 'google-s2' });
+    }
+    return list;
+  }
+
+  function setDebugBadge(img, tag) {
+    if (!ICON_DEBUG) return;
+    let tries = 0;
+    const mount = () => {
+      if (!img.parentNode) {
+        if (++tries < 20) setTimeout(mount, 50);
+        return;
+      }
+      if (img.parentNode.querySelector('.slot-debug')) return;
+      const badge = document.createElement('span');
+      badge.className = 'slot-debug';
+      badge.textContent = tag === 'missing' ? 'missing' : tag;
+      img.parentNode.appendChild(badge);
+    };
+    mount();
   }
 
   function makeIcon(item) {
     const fallback = MCUI.defaultIcon();
-    const src = item.icon || MCStore.faviconUrl(item.url, 64) || fallback;
+    const sources = iconSources(item);
+    const record = { name: item.name, url: item.url, env: HAS_EXTENSION ? 'extension' : 'preview', attempts: [], final: '' };
+    iconReport.push(record);
+
     const img = document.createElement('img');
     img.className = 'slot-icon';
     img.alt = '';
-    img.loading = 'lazy';
     img.referrerPolicy = 'no-referrer';
-    img.src = src;
-    img.addEventListener('error', () => {
-      if (img.src.indexOf(fallback) === -1) img.src = fallback;
+    img.decoding = 'async';
+
+    let index = 0;
+    let timer = 0;
+    let done = false;
+    const startedAt = Date.now();
+
+    const label = '[icon] ' + (record.name || '?') + ' <' + shortUrl(record.url) + '> [' + record.env + ']';
+
+    const current = () => record.attempts[record.attempts.length - 1];
+
+    const nextTimeout = () => {
+      const left = ICON_BUDGET_MS - (Date.now() - startedAt);
+      return Math.max(1200, Math.min(ICON_TIMEOUT_MS, left));
+    };
+
+    const finish = (tag) => {
+      if (done) return;
+      done = true;
+      clearTimeout(timer);
+      record.final = tag;
+      const count = record.attempts.length;
+      const ok = record.attempts.filter((a) => a.result === 'ok').length;
+      if (tag === 'missing') {
+        console.warn(label + ' → missing（' + count + ' 个地址均失败）', record.attempts);
+      } else {
+        console.log(label + ' → ' + tag + '（成功 ' + ok + '/' + count + '）', record.attempts);
+      }
+      setDebugBadge(img, tag);
+    };
+
+    const next = (reason) => {
+      if (done) return;
+      clearTimeout(timer);
+      const attempt = current();
+      if (attempt && reason) attempt.result = reason;
+      if (index >= sources.length) {
+        if (img.getAttribute('src') !== fallback) img.src = fallback;
+        finish('missing');
+        return;
+      }
+      const source = sources[index++];
+      record.attempts.push({ tag: source.tag, url: source.url, result: 'pending' });
+      console.log(label + ' 尝试 ' + index + '/' + sources.length + ' [' + source.tag + '] ' + shortUrl(source.url));
+      img.src = source.url;
+      const wait = nextTimeout();
+      timer = setTimeout(() => {
+        const pending = current();
+        if (!pending || pending.result !== 'pending') return;
+        pending.result = 'timeout';
+        console.warn(label + ' [' + source.tag + '] 超时 ' + wait + 'ms：' + shortUrl(source.url));
+        next();
+      }, wait);
+    };
+
+    img.addEventListener('load', () => {
+      if (done) return;
+      clearTimeout(timer);
+      const attempt = current();
+      if (!attempt) return;
+      if (!img.naturalWidth) {
+        attempt.result = 'empty';
+        console.warn(label + ' [' + attempt.tag + '] 解码为空：' + shortUrl(attempt.url));
+        next();
+        return;
+      }
+      attempt.result = 'ok';
+      attempt.size = img.naturalWidth + 'x' + img.naturalHeight;
+      finish(attempt.tag);
     });
+
+    img.addEventListener('error', () => {
+      if (done) return;
+      clearTimeout(timer);
+      const attempt = current();
+      if (!attempt) return;
+      attempt.result = 'error';
+      console.warn(label + ' [' + attempt.tag + '] 加载失败（网络/拦截/非图片）：' + shortUrl(attempt.url));
+      next();
+    });
+
+    next();
     return img;
+  }
+
+  function updateGridScrollbar() {
+    if (!el.grid || !el.gridScrollbar || !el.gridThumb) return;
+    const view = el.grid.clientHeight;
+    const content = el.grid.scrollHeight;
+    if (content <= view + 1) {
+      el.gridScrollbar.hidden = true;
+      return;
+    }
+    el.gridScrollbar.hidden = false;
+    const trackH = el.gridScrollbar.clientHeight;
+    const thumbH = Math.max(36, Math.round(trackH * view / content));
+    const maxScroll = content - view;
+    const maxTop = Math.max(0, trackH - thumbH);
+    const top = maxScroll ? (el.grid.scrollTop / maxScroll) * maxTop : 0;
+    el.gridThumb.style.height = thumbH + 'px';
+    el.gridThumb.style.top = top + 'px';
+  }
+
+  let scrollDrag = null;
+
+  function bindGridScrollbar() {
+    if (!el.grid || !el.gridScrollbar || !el.gridThumb) return;
+
+    el.grid.addEventListener('scroll', updateGridScrollbar);
+    window.addEventListener('resize', updateGridScrollbar);
+
+    el.gridThumb.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      scrollDrag = {
+        startY: e.clientY,
+        startTop: parseFloat(el.gridThumb.style.top) || 0
+      };
+      el.gridThumb.classList.add('is-dragging');
+      el.gridThumb.setPointerCapture(e.pointerId);
+    });
+
+    el.gridThumb.addEventListener('pointermove', (e) => {
+      if (!scrollDrag) return;
+      const trackH = el.gridScrollbar.clientHeight;
+      const thumbH = el.gridThumb.offsetHeight;
+      const maxTop = Math.max(1, trackH - thumbH);
+      const maxScroll = el.grid.scrollHeight - el.grid.clientHeight;
+      const nextTop = Math.min(maxTop, Math.max(0, scrollDrag.startTop + (e.clientY - scrollDrag.startY)));
+      el.grid.scrollTop = (nextTop / maxTop) * maxScroll;
+      updateGridScrollbar();
+    });
+
+    const endDrag = () => {
+      if (!scrollDrag) return;
+      scrollDrag = null;
+      el.gridThumb.classList.remove('is-dragging');
+    };
+    el.gridThumb.addEventListener('pointerup', endDrag);
+    el.gridThumb.addEventListener('pointercancel', endDrag);
+
+    el.gridScrollbar.addEventListener('pointerdown', (e) => {
+      if (e.target === el.gridThumb) return;
+      const rect = el.gridScrollbar.getBoundingClientRect();
+      const trackH = el.gridScrollbar.clientHeight;
+      const thumbH = el.gridThumb.offsetHeight;
+      const maxTop = Math.max(1, trackH - thumbH);
+      const maxScroll = el.grid.scrollHeight - el.grid.clientHeight;
+      const target = Math.min(maxTop, Math.max(0, e.clientY - rect.top - thumbH / 2));
+      el.grid.scrollTop = (target / maxTop) * maxScroll;
+      updateGridScrollbar();
+    });
   }
 
   function makeItemSlot(item, options) {
@@ -667,15 +1030,69 @@
     button.type = 'button';
     button.className = 'slot is-filled' + (pocket ? ' is-pocket' : '');
     button.dataset.itemId = item.id;
-    button.title = item.name + ' — ' + item.url;
+    button.dataset.itemName = item.name;
+    button.setAttribute('aria-label', item.name + ' — ' + item.url);
     button.draggable = true;
     button.appendChild(makeIcon(item));
-
-    const label = document.createElement('span');
-    label.className = 'slot-label';
-    label.textContent = item.name;
-    button.appendChild(label);
     return button;
+  }
+
+  function showSlotTooltip(target, x, y) {
+    if (!el.tooltip) return;
+    const name = target.dataset.itemName || '';
+    if (!name) return;
+    tooltipTarget = target;
+    el.tooltip.textContent = name;
+    el.tooltip.hidden = false;
+    moveSlotTooltip(x, y);
+  }
+
+  function moveSlotTooltip(x, y) {
+    if (!el.tooltip || el.tooltip.hidden) return;
+    const pad = 12;
+    const offsetX = 14;
+    const offsetY = 18;
+    let left = x + offsetX;
+    let top = y + offsetY;
+    const width = el.tooltip.offsetWidth;
+    const height = el.tooltip.offsetHeight;
+    if (left + width + pad > window.innerWidth) left = x - width - offsetX;
+    if (top + height + pad > window.innerHeight) top = y - height - offsetY;
+    el.tooltip.style.left = Math.max(pad, left) + 'px';
+    el.tooltip.style.top = Math.max(pad, top) + 'px';
+  }
+
+  function hideSlotTooltip() {
+    tooltipTarget = null;
+    if (el.tooltip) el.tooltip.hidden = true;
+  }
+
+  function bindSlotTooltips(container) {
+    container.addEventListener('pointerover', (e) => {
+      const slot = e.target.closest ? e.target.closest('.slot[data-item-id]') : null;
+      if (!slot) return;
+      showSlotTooltip(slot, e.clientX, e.clientY);
+    });
+
+    container.addEventListener('pointermove', (e) => {
+      if (!tooltipTarget || el.tooltip.hidden) return;
+      const slot = e.target.closest ? e.target.closest('.slot[data-item-id]') : null;
+      if (slot !== tooltipTarget) {
+        if (slot) showSlotTooltip(slot, e.clientX, e.clientY);
+        else hideSlotTooltip();
+        return;
+      }
+      moveSlotTooltip(e.clientX, e.clientY);
+    });
+
+    container.addEventListener('pointerout', (e) => {
+      const slot = e.target.closest ? e.target.closest('.slot[data-item-id]') : null;
+      if (!slot) return;
+      const next = e.relatedTarget && e.relatedTarget.closest ? e.relatedTarget.closest('.slot[data-item-id]') : null;
+      if (next === slot) return;
+      if (next) return;
+      hideSlotTooltip();
+    });
   }
 
   function renderGrid() {
@@ -713,6 +1130,8 @@
       empty.className = 'slot is-empty';
       el.grid.appendChild(empty);
     }
+
+    updateGridScrollbar();
   }
 
   function renderHotbar() {
@@ -754,6 +1173,7 @@
         };
         state.categories.push(category);
         state.activeCategoryId = category.id;
+        tabPage = Math.floor((state.categories.length - 1) / TAB_PAGE_SIZE);
         invQuery = '';
         el.inventorySearch.value = '';
         persist();
@@ -985,47 +1405,28 @@
       openEditCategory(tab.dataset.catId);
     });
 
-    /* 页签行超过 4 个时：滚轮横向滚动 + 按住拖动，隐藏原生滚动条 */
-    el.tabStrip.addEventListener('wheel', (e) => {
-      if (el.tabStrip.scrollWidth <= el.tabStrip.clientWidth) return;
-      e.preventDefault();
-      el.tabStrip.scrollLeft += (e.deltaY || e.deltaX);
-    }, { passive: false });
-
-    let tabDragStart = null;
-    el.tabStrip.addEventListener('pointerdown', (e) => {
-      if (e.button !== 0) return;
-      if (el.tabStrip.scrollWidth <= el.tabStrip.clientWidth) return;
-      tabDragStart = {
-        x: e.clientX,
-        left: el.tabStrip.scrollLeft,
-        moved: false
-      };
-    });
-    window.addEventListener('pointermove', (e) => {
-      if (!tabDragStart) return;
-      const delta = e.clientX - tabDragStart.x;
-      if (!tabDragStart.moved && Math.abs(delta) < 4) return;
-      tabDragStart.moved = true;
-      el.tabStrip.classList.add('is-dragging');
-      el.tabStrip.scrollLeft = tabDragStart.left - delta;
-    });
-    window.addEventListener('pointerup', () => {
-      if (!tabDragStart) return;
-      if (tabDragStart.moved) {
-        suppressClickUntil = Date.now() + 240;
-        el.tabStrip.classList.remove('is-dragging');
-      }
-      tabDragStart = null;
+    el.tabPrev?.addEventListener('click', () => {
+      if (tabPage <= 0) return;
+      tabPage -= 1;
+      hideSlotTooltip();
+      renderTabs();
     });
 
-    el.btnInventoryHelp.addEventListener('click', () => {
-      MCUI.openMessage({
-        title: t('inventory.welcomeTitle'),
-        body: t('inventory.welcomeBody'),
-        actionLabel: t('inventory.welcomeAction'),
-        onAction: () => {}
-      });
+    el.tabNext?.addEventListener('click', () => {
+      const pageCount = Math.ceil(state.categories.length / TAB_PAGE_SIZE);
+      if (tabPage >= pageCount - 1) return;
+      tabPage += 1;
+      hideSlotTooltip();
+      renderTabs();
+    });
+
+    bindSlotTooltips(el.grid);
+    bindSlotTooltips(el.hotbar);
+    bindGridScrollbar();
+    bindHistoryScrollbar();
+    document.addEventListener('dragover', trackHistoryDrag);
+    document.addEventListener('dragend', () => {
+      historyDrag = null;
     });
 
     el.inventorySearch.addEventListener('input', () => {

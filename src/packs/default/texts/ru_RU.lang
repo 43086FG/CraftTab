@@ -133,6 +133,9 @@ nav.about=О программе
 group.about=О программе
 about.author=Автор
 about.email=Эл. почта
+about.version=Версия
+about.texturesFrom=Текстуры из Minecraft Bedrock
+about.texturesCopyright=Права на текстуры принадлежат Mojang Studios
 general.playerNamePlaceholder=Оставьте пустым — будет использовано имя учётной записи браузера
 
 # —— Группы настроек ——
@@ -143,7 +146,7 @@ group.data=Данные
 ## 资源包 / Resource packs
 packs.desc=Пакеты ресурсов заменяют текстуры интерфейса, шрифты и тексты. Изменения применяются сразу.
 packs.add=Добавить пакет
-packs.empty=Пакетов пока нет. Нажмите кнопку ниже, чтобы добавить файл .kzpack.
+packs.empty=Пакетов пока нет. Нажмите кнопку ниже, чтобы добавить файл .mcpack.
 packs.version=Версия
 packs.statusOn=Включён
 packs.statusOff=Отключён
@@ -154,10 +157,10 @@ packs.down=Вниз
 packs.delete=Удалить пакет
 packs.deleteBody=Пакет и его текстуры будут удалены навсегда.
 packs.imported=Пакет импортирован и включён.
-packs.importError=Не удалось прочитать файл. Убедитесь, что это допустимый архив .kzpack.
+packs.importError=Не удалось прочитать файл. Убедитесь, что это допустимый архив .mcpack.
 packs.badManifest=manifest.json отсутствует или повреждён, пакет отклонён.
 packs.builtin=Встроенный
-packs.uploadHint=Поддерживаются .kzpack / .zip со структурой пакета Minecraft Bedrock.
+packs.uploadHint=Поддерживаются .mcpack / .zip со структурой пакета Minecraft Bedrock.
 wallpaper.volumeLabel=Громкость
 wallpaper.clickForSound=Нажмите, чтобы включить звук
 general.playerName=Имя игрока

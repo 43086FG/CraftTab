@@ -4,6 +4,8 @@
 
 Minecraft 基岩版风格的 Edge / Chrome 新标签页扩展。Manifest V3，原生 HTML/CSS/JS，无需构建即可加载。
 
+当前版本：**1.0.1**，更新说明见 [release notes](docs/release-notes-v1.0.1.md)。
+
 ![CraftTab 主界面](docs/screenshot-main-menu.png)
 
 ## 功能
@@ -13,7 +15,7 @@ Minecraft 基岩版风格的 Edge / Chrome 新标签页扩展。Manifest V3，�
 - **搜索** —— Bing、Google、Baidu、DuckDuckGo、Yandex、360 六种引擎，搜索历史保存在本地。
 - **小组件物品栏** —— 17 列网格、分类页签、独立快捷栏，拖拽增删、自定义图标。
 - **图标抓取** —— 自动查找 favicon / manifest 图标并校验尺寸，抓不到时可手动上传。
-- **资源包** —— 导入 `.kzpack` 替换界面贴图、字体与文案，可启用 / 停用 / 排序 / 删除，导入立即生效。
+- **资源包** —— 导入 `.mcpack` / `.zip` 替换界面贴图、字体与文案，可启用 / 停用 / 排序 / 删除，导入立即生效。
 - **设置页** —— 常规设置、壁纸、语言、全局资源、小组件、重置与备份、关于，支持导出 / 导入备份。
 - **八种语言** —— 简体中文、繁體中文、English、日本語、한국어、Español、Русский、Français。
 
@@ -30,9 +32,9 @@ Minecraft 基岩版风格的 Edge / Chrome 新标签页扩展。Manifest V3，�
 
 把 `.crx` 拖入扩展管理页即可。部分浏览器会限制非商店来源的 CRX，若被拦截请改用 zip 方式。
 
-## 资源包（`.kzpack`）
+## 资源包（`.mcpack` / `.zip`）
 
-`.kzpack` 就是把 zip 改后缀。在 **设置 → 全局资源** 中导入；列表位置越靠上优先级越高，最下面是内置 `Default` 包。
+`.mcpack` 是 Minecraft 基岩版资源包（本质是 zip 改用 `.mcpack` 后缀）。在 **设置 → 全局资源** 中导入；列表位置越靠上优先级越高，最下面是内置 `Default` 包。相同目录结构的普通 `.zip` 也可以导入。
 
 ```
 manifest.json         包元信息（也可命名为 pack.json）

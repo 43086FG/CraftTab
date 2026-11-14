@@ -133,6 +133,9 @@ nav.about=정보
 group.about=정보
 about.author=제작자
 about.email=연락 이메일
+about.version=버전
+about.texturesFrom=텍스처 출처: Minecraft Bedrock
+about.texturesCopyright=텍스처 저작권은 Mojang Studios에 있습니다
 general.playerNamePlaceholder=비워 두면 브라우저 계정 이름을 사용합니다
 
 # —— 설정 그룹 ——
@@ -143,7 +146,7 @@ group.data=데이터
 ## 资源包 / Resource packs
 packs.desc=리소스 팩은 화면 텍스처, 글꼴, 텍스트를 덮어씁니다. 가져오면 즉시 적용됩니다.
 packs.add=리소스 팩 추가
-packs.empty=아직 리소스 팩이 없습니다. 아래 버튼으로 .kzpack 파일을 추가하세요.
+packs.empty=아직 리소스 팩이 없습니다. 아래 버튼으로 .mcpack 파일을 추가하세요.
 packs.version=버전
 packs.statusOn=사용 중
 packs.statusOff=사용 안 함
@@ -154,10 +157,10 @@ packs.down=아래로
 packs.delete=팩 삭제
 packs.deleteBody=삭제하면 이 팩과 텍스처가 영구적으로 제거됩니다.
 packs.imported=리소스 팩을 가져와 사용 설정했습니다.
-packs.importError=파일을 읽을 수 없습니다. 올바른 .kzpack 압축 파일인지 확인하세요.
+packs.importError=파일을 읽을 수 없습니다. 올바른 .mcpack 압축 파일인지 확인하세요.
 packs.badManifest=manifest.json이 없거나 형식이 잘못되어 팩을 거부했습니다.
 packs.builtin=내장
-packs.uploadHint=.kzpack / .zip 지원. Minecraft 베드락 에디션 리소스 팩 구조와 같습니다.
+packs.uploadHint=.mcpack / .zip 지원. Minecraft 베드락 에디션 리소스 팩 구조와 같습니다.
 wallpaper.volumeLabel=음량
 wallpaper.clickForSound=클릭하여 소리 켜기
 general.playerName=플레이어 이름

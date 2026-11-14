@@ -133,6 +133,9 @@ nav.about=关于
 group.about=关于
 about.author=作者
 about.email=联系邮箱
+about.version=版本
+about.texturesFrom=贴图来源于 Minecraft Bedrock
+about.texturesCopyright=贴图版权归属于 Mojang Studio
 general.playerNamePlaceholder=留空则使用浏览器账号名
 
 # —— 设置页分组 ——
@@ -143,7 +146,7 @@ group.data=数据
 ## 资源包 / Resource packs
 packs.desc=资源包会覆盖界面贴图、字体与文字，导入后立即生效。
 packs.add=添加资源包
-packs.empty=还没有导入资源包，点击下方按钮添加 .kzpack 文件。
+packs.empty=还没有导入资源包，点击下方按钮添加 .mcpack 文件。
 packs.version=版本
 packs.statusOn=已启用
 packs.statusOff=已停用
@@ -154,10 +157,10 @@ packs.down=下移
 packs.delete=删除资源包
 packs.deleteBody=删除后这个资源包及其贴图会被永久移除。
 packs.imported=资源包已导入并启用。
-packs.importError=无法读取这个文件，请确认它是有效的 .kzpack 压缩包。
+packs.importError=无法读取这个文件，请确认它是有效的 .mcpack 压缩包。
 packs.badManifest=manifest.json 缺失或格式不正确，资源包被拒绝。
 packs.builtin=内置
-packs.uploadHint=支持 .kzpack / .zip，结构同 Minecraft 基岩版资源包。
+packs.uploadHint=支持 .mcpack / .zip，结构同 Minecraft 基岩版资源包。
 wallpaper.volumeLabel=音量
 wallpaper.clickForSound=点击恢复声音
 general.playerName=玩家名

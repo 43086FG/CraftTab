@@ -133,6 +133,9 @@ nav.about=このアプリについて
 group.about=このアプリについて
 about.author=作者
 about.email=連絡先メール
+about.version=バージョン
+about.texturesFrom=テクスチャは Minecraft Bedrock より
+about.texturesCopyright=テクスチャの著作権は Mojang Studios に帰属します
 general.playerNamePlaceholder=空欄の場合はブラウザのアカウント名を使用
 
 # —— 設定のグループ ——
@@ -143,7 +146,7 @@ group.data=データ
 ## 资源包 / Resource packs
 packs.desc=リソースパックは画面のテクスチャ、フォント、テキストを上書きします。インポート後すぐに反映されます。
 packs.add=リソースパックを追加
-packs.empty=リソースパックはまだありません。下のボタンから .kzpack ファイルを追加してください。
+packs.empty=リソースパックはまだありません。下のボタンから .mcpack ファイルを追加してください。
 packs.version=バージョン
 packs.statusOn=有効
 packs.statusOff=無効
@@ -154,10 +157,10 @@ packs.down=下へ
 packs.delete=パックを削除
 packs.deleteBody=削除すると、このパックとテクスチャは完全に消えます。
 packs.imported=リソースパックをインポートして有効にしました。
-packs.importError=ファイルを読み取れません。有効な .kzpack アーカイブか確認してください。
+packs.importError=ファイルを読み取れません。有効な .mcpack アーカイブか確認してください。
 packs.badManifest=manifest.json がないか形式が正しくないため、パックを拒否しました。
 packs.builtin=内蔵
-packs.uploadHint=.kzpack / .zip に対応。Minecraft 統合版リソースパックの構成と同じです。
+packs.uploadHint=.mcpack / .zip に対応。Minecraft 統合版リソースパックの構成と同じです。
 wallpaper.volumeLabel=音量
 wallpaper.clickForSound=クリックして音を戻す
 general.playerName=プレイヤー名

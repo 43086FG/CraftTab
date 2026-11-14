@@ -6,7 +6,7 @@ node_modules/
 *.pem
 *.crx
 *.zip
-*.kzpack
+*.mcpack
 screenshots/
 *.log
 .DS_Store

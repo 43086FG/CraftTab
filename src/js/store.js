@@ -8,12 +8,14 @@ const MCStore = (() => {
   const MAX_HISTORY = 8;
 
   const SEARCH_ENGINES = [
-    { id: 'bing', name: 'Bing', url: 'https://www.bing.com/search?q=' },
     { id: 'google', name: 'Google', url: 'https://www.google.com/search?q=' },
-    { id: 'baidu', name: 'Baidu', url: 'https://www.baidu.com/s?wd=' },
+    { id: 'bing', name: 'Bing', url: 'https://www.bing.com/search?q=' },
     { id: 'duckduckgo', name: 'DuckDuckGo', url: 'https://duckduckgo.com/?q=' },
-    { id: 'yandex', name: 'Yandex', url: 'https://yandex.com/search/?text=' },
-    { id: '360', name: '360', url: 'https://www.so.com/s?q=' }
+    { id: 'baidu', name: 'Baidu', url: 'https://www.baidu.com/s?wd=' },
+    { id: '360', name: '360', url: 'https://www.so.com/s?q=' },
+    { id: 'sogou', name: 'Sogou', url: 'https://www.sogou.com/web?query=' },
+    { id: 'startpage', name: 'Startpage', url: 'https://www.startpage.com/sp/search?query=' },
+    { id: 'brave', name: 'Brave', url: 'https://search.brave.com/search?q=' }
   ];
 
   const hasChromeStorage =

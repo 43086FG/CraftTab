@@ -11,7 +11,8 @@ const MCUI = (() => {
 
   /* ---------------- 图标候选 ---------------- */
 
-  const ICON_MIN_SIZE = 32;
+  /* 只用 <img> 解码验证，不做内容校验；尺寸不再设下限，避免误杀 16px 小图标 */
+  const ICON_MIN_SIZE = 1;
   const ICON_TIMEOUT_MS = 8000;
 
   /** 交给扩展后台抓页面 HTML / manifest；预览环境返回空数组 */
@@ -52,6 +53,8 @@ const MCUI = (() => {
     return [
       'https://' + host + '/favicon.ico',
       'https://' + host + '/apple-touch-icon.png',
+      'https://favicon.im/' + host + '?larger=true',
+      'https://favicon.yandex.net/favicon/' + host,
       'https://icons.duckduckgo.com/ip3/' + host + '.ico',
       'https://www.google.com/s2/favicons?domain=' + host + '&sz=128',
       'https://www.google.com/s2/favicons?domain=' + host + '&sz=64'

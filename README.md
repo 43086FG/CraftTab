@@ -4,6 +4,8 @@
 
 A Minecraft Bedrock-style new tab page for Edge and Chrome. Manifest V3, plain HTML/CSS/JS, no build step required.
 
+Current version: **1.0.1** — see [release notes](docs/release-notes-v1.0.1.md).
+
 ![CraftTab main menu](docs/screenshot-main-menu.png)
 
 ## What it does
@@ -13,7 +15,7 @@ A Minecraft Bedrock-style new tab page for Edge and Chrome. Manifest V3, plain H
 - **Search** — Bing, Google, Baidu, DuckDuckGo, Yandex and 360, with local search history.
 - **Widget inventory** — 17-column grid, category tabs, a separate hotbar, drag to add or remove, custom icons.
 - **Icon fetching** — pulls favicon / web-manifest icons, validates their size, and falls back to manual upload.
-- **Resource packs** — import `.kzpack` files to override UI textures, fonts and texts; enable, disable, reorder or delete them, applied instantly.
+- **Resource packs** — import `.mcpack` or `.zip` files to override UI textures, fonts and texts; enable, disable, reorder or delete them, applied instantly.
 - **Settings** — General, Wallpaper, Language, Global Resources, Widgets, Reset & Backup, About. Export / import backups.
 - **Eight languages** — English, 简体中文, 繁體中文, 日本語, 한국어, Español, Русский, Français.
 
@@ -30,9 +32,9 @@ A Minecraft Bedrock-style new tab page for Edge and Chrome. Manifest V3, plain H
 
 Drag the `.crx` into the extensions page. Some browsers restrict non-store CRX installs; if that happens, use the unpacked zip instead.
 
-## Resource packs (`.kzpack`)
+## Resource packs (`.mcpack` / `.zip`)
 
-A `.kzpack` is a zip renamed to `.kzpack`. Import it in **Settings → Global Resources**; the pack list puts higher entries above lower ones, with the built-in `Default` pack at the bottom.
+A `.mcpack` is a Minecraft Bedrock resource pack, i.e. a zip with the `.mcpack` extension. Import it in **Settings → Global Resources**; the pack list puts higher entries above lower ones, with the built-in `Default` pack at the bottom. Plain `.zip` archives with the same layout are also accepted.
 
 ```
 manifest.json      # pack header (pack.json is also accepted)

@@ -133,6 +133,9 @@ nav.about=À propos
 group.about=À propos
 about.author=Auteur
 about.email=E-mail de contact
+about.version=Version
+about.texturesFrom=Textures issues de Minecraft Bedrock
+about.texturesCopyright=Les droits des textures appartiennent à Mojang Studios
 general.playerNamePlaceholder=Laissez vide pour utiliser le nom de votre compte navigateur
 
 # —— Groupes de paramètres ——
@@ -143,7 +146,7 @@ group.data=Données
 ## 资源包 / Resource packs
 packs.desc=Les packs de ressources remplacent les textures, polices et textes de l'interface. Ils s'appliquent immédiatement.
 packs.add=Ajouter un pack
-packs.empty=Aucun pack importé. Utilisez le bouton ci-dessous pour ajouter un .kzpack.
+packs.empty=Aucun pack importé. Utilisez le bouton ci-dessous pour ajouter un .mcpack.
 packs.version=Version
 packs.statusOn=Activé
 packs.statusOff=Désactivé
@@ -154,10 +157,10 @@ packs.down=Descendre
 packs.delete=Supprimer le pack
 packs.deleteBody=Supprimer ce pack effacera définitivement ses textures.
 packs.imported=Pack importé et activé.
-packs.importError=Impossible de lire le fichier. Vérifiez qu'il s'agit d'un .kzpack valide.
+packs.importError=Impossible de lire le fichier. Vérifiez qu'il s'agit d'un .mcpack valide.
 packs.badManifest=manifest.json manquant ou invalide, pack refusé.
 packs.builtin=Intégré
-packs.uploadHint=Prend en charge .kzpack / .zip, même structure que les packs Minecraft Bedrock.
+packs.uploadHint=Prend en charge .mcpack / .zip, même structure que les packs Minecraft Bedrock.
 wallpaper.volumeLabel=Volume
 wallpaper.clickForSound=Cliquez pour rétablir le son
 general.playerName=Nom de joueur

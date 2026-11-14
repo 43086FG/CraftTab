@@ -15,6 +15,19 @@
   const MAX_FILE_BYTES = 24 * 1024 * 1024;
   const DEFAULT_BG = 'assets/default-bg.jpg';
 
+  /** 关于页显示的版本：扩展环境读 manifest，静态预览用固定值 */
+  const APP_VERSION = (() => {
+    try {
+      if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.getManifest) {
+        const info = chrome.runtime.getManifest();
+        if (info && info.version) return info.version;
+      }
+    } catch (err) {
+      /* 预览环境没有扩展 API */
+    }
+    return '1.0.1';
+  })();
+
   const NAV_ICONS = {
     wallpaper: 'icon_preview',
     general: 'icon_setting',
@@ -699,7 +712,7 @@
     const addInput = document.createElement('input');
     addInput.type = 'file';
     addInput.hidden = true;
-    addInput.accept = '.kzpack,.zip,.mcpack,application/zip';
+    addInput.accept = '.mcpack,.zip,application/zip';
 
     const addBtn = mk('button', 'mc-action is-stone', t('packs.add'));
     addBtn.type = 'button';
@@ -709,6 +722,11 @@
       const file = addInput.files && addInput.files[0];
       addInput.value = '';
       if (!file) return;
+      /* 只接受 .mcpack 与 .zip，其余后缀直接拒绝 */
+      if (!/\.(mcpack|zip)$/i.test(file.name || '')) {
+        MCUI.toast(t('packs.importError'));
+        return;
+      }
       try {
         await MCPacks.importFile(file);
         await afterPacksChange(t('packs.imported'));
@@ -837,6 +855,19 @@
     link.textContent = 'fg43086@outlook.com';
     emailRow.appendChild(link);
     panel.appendChild(emailRow);
+
+    const versionRow = mk('div', 'about-row');
+    versionRow.appendChild(mk('span', 'about-label', t('about.version')));
+    versionRow.appendChild(mk('span', 'about-value', APP_VERSION));
+    panel.appendChild(versionRow);
+
+    const texturesRow = mk('div', 'about-row');
+    texturesRow.appendChild(mk('span', 'about-value', t('about.texturesFrom')));
+    panel.appendChild(texturesRow);
+
+    const copyrightRow = mk('div', 'about-row');
+    copyrightRow.appendChild(mk('span', 'about-value', t('about.texturesCopyright')));
+    panel.appendChild(copyrightRow);
 
     wrap.appendChild(panel);
   }

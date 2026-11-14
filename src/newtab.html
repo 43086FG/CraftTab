@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Minecraft</title>
+<link rel="icon" href="icons/icon32.png">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/newtab.css">
 </head>
@@ -48,7 +49,12 @@
                 <span data-i18n="search.clear">清空历史</span>
               </button>
             </div>
-            <ul class="history-list mc-scroll" id="historyList"></ul>
+            <div class="history-scroll-area">
+              <ul class="history-list" id="historyList"></ul>
+              <div class="history-scrollbar" id="historyScrollbar" hidden>
+                <div class="history-scroll-thumb" id="historyScrollThumb"></div>
+              </div>
+            </div>
             <p class="history-empty" id="historyEmpty" data-i18n="search.empty">暂无搜索历史</p>
           </div>
         </div>
@@ -60,7 +66,13 @@
   <div class="inventory-overlay" id="inventoryOverlay" hidden>
     <section class="inventory-shell" id="inventoryShell" role="dialog" aria-modal="true" aria-label="Widgets">
       <div class="inventory-top">
-        <div class="tab-strip mc-scroll" id="tabStrip"></div>
+        <button type="button" class="tab-page is-prev" id="tabPrev" hidden aria-label="Previous category page">
+          <img data-tex="arrow_left" src="assets/vanilla/arrow_left.png" alt="">
+        </button>
+        <div class="tab-strip" id="tabStrip"></div>
+        <button type="button" class="tab-page is-next" id="tabNext" hidden aria-label="Next category page">
+          <img data-tex="arrow_left" src="assets/vanilla/arrow_left.png" alt="">
+        </button>
         <button type="button" class="tab-add" id="btnNewCategory" aria-label="New category">
           <img data-tex="icon_plus_dark" src="assets/vanilla/icon_plus_dark.png" alt="">
         </button>
@@ -70,9 +82,6 @@
             <input type="text" id="inventorySearch" class="inventory-search-input"
                    autocomplete="off" spellcheck="false" data-i18n-placeholder="inventory.searchPlaceholder">
           </div>
-          <button type="button" class="inventory-help" id="btnInventoryHelp" aria-label="Help">
-            <span>?</span>
-          </button>
           <button type="button" class="inventory-close" id="btnInventoryClose" aria-label="Close">
             <img data-tex="close_x_light" src="assets/vanilla/close_x_light.png" alt="">
           </button>
@@ -82,8 +91,14 @@
       <div class="inventory-window" id="inventoryWindow">
         <div class="inventory-window-head">
           <span class="drag-hint" data-i18n="inventory.dragHint">将图标拖出面板即可删除</span>
+          <span class="category-label" id="inventoryCategoryLabel"></span>
         </div>
-        <div class="item-grid" id="inventoryGrid"></div>
+        <div class="grid-area">
+          <div class="item-grid" id="inventoryGrid"></div>
+          <div class="grid-scrollbar" id="gridScrollbar" hidden>
+            <div class="grid-scroll-thumb" id="gridScrollThumb"></div>
+          </div>
+        </div>
       </div>
 
       <div class="hotbar-wrap">
@@ -91,6 +106,8 @@
       </div>
     </section>
   </div>
+
+  <div class="slot-tooltip" id="slotTooltip" hidden></div>
 
   <div class="modal-backdrop" id="modalRoot" hidden></div>
   <div class="mc-toast" id="toast"></div>

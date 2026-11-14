@@ -133,6 +133,9 @@ nav.about=About
 group.about=About
 about.author=Author
 about.email=Contact email
+about.version=Version
+about.texturesFrom=Textures from Minecraft Bedrock
+about.texturesCopyright=Textures copyright Mojang Studios
 general.playerNamePlaceholder=Leave empty to use your browser account name
 
 # —— Settings groups ——
@@ -143,7 +146,7 @@ group.data=Data
 ## 资源包 / Resource packs
 packs.desc=Resource packs override interface textures, fonts and text. Changes apply immediately after import.
 packs.add=Add resource pack
-packs.empty=No resource packs imported yet. Use the button below to add a .kzpack file.
+packs.empty=No resource packs imported yet. Use the button below to add a .mcpack file.
 packs.version=Version
 packs.statusOn=Enabled
 packs.statusOff=Disabled
@@ -154,10 +157,10 @@ packs.down=Move down
 packs.delete=Delete pack
 packs.deleteBody=Deleting this pack permanently removes it and its textures.
 packs.imported=Resource pack imported and enabled.
-packs.importError=That file could not be read. Make sure it is a valid .kzpack archive.
+packs.importError=That file could not be read. Make sure it is a valid .mcpack archive.
 packs.badManifest=manifest.json is missing or invalid, so the pack was rejected.
 packs.builtin=Built-in
-packs.uploadHint=Supports .kzpack / .zip with the Minecraft Bedrock resource pack layout.
+packs.uploadHint=Supports .mcpack / .zip with the Minecraft Bedrock resource pack layout.
 wallpaper.volumeLabel=Volume
 wallpaper.clickForSound=Click to restore sound
 general.playerName=Player name

@@ -15,8 +15,8 @@ First public release: a Minecraft Bedrock-style new tab for Edge and Chrome.
   Video wallpapers with volume and sound controls; playback mutes on hide/close and only one tab is audible.
 - 8 种语言：简体中文、繁體中文、English、日本語、한국어、Español、Русский、Français，切换即时生效。
   Eight languages, switched live across new tab and settings.
-- `.kzpack` 资源包：导入即可覆盖贴图 / 字体 / 文案，支持启用、停用、排序与删除，列表位置越高优先级越高，底部为内置 `Default` 包。
-  `.kzpack` resource packs override textures, fonts and texts, with enable/disable, reordering and deletion; higher entries win, `Default` sits at the bottom.
+- `.mcpack` / `.zip` 资源包：导入即可覆盖贴图 / 字体 / 文案，支持启用、停用、排序与删除，列表位置越高优先级越高，底部为内置 `Default` 包。
+  `.mcpack` / `.zip` resource packs override textures, fonts and texts, with enable/disable, reordering and deletion; higher entries win, `Default` sits at the bottom.
 - 设置页模块：常规设置、壁纸、语言、全局资源、小组件、重置与备份、关于。
   Settings modules: General, Wallpaper, Language, Global Resources, Widgets, Reset & Backup, About.
 
@@ -34,8 +34,8 @@ First public release: a Minecraft Bedrock-style new tab for Edge and Chrome.
 
 ## 资源包示例 · Sample pack
 
-`MCNewTab-示例资源包.kzpack` 导入后会改变主菜单 LOGO 颜色与设置按钮文案；结构说明见仓库中的 `src/packs/README.md`。
-The sample `.kzpack` recolors the main menu logo and changes the settings label after import; see `src/packs/README.md` for the format.
+`MCNewTab-示例资源包.mcpack` 导入后会改变主菜单 LOGO 颜色与设置按钮文案；结构说明见仓库中的 `src/packs/README.md`。
+The sample `.mcpack` recolors the main menu logo and changes the settings label after import; see `src/packs/README.md` for the format.
 
 作者 · Author: 43086FG · fg43086@outlook.com
 许可 · License: MIT（代码 / code）；Minecraft 素材版权归 Mojang Studios / Microsoft。

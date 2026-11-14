@@ -133,6 +133,9 @@ nav.about=關於
 group.about=關於
 about.author=作者
 about.email=聯絡郵箱
+about.version=版本
+about.texturesFrom=貼圖來源於 Minecraft Bedrock
+about.texturesCopyright=貼圖版權歸屬於 Mojang Studio
 general.playerNamePlaceholder=留空則使用瀏覽器帳號名稱
 
 # —— 設定頁分組 ——
@@ -143,7 +146,7 @@ group.data=資料
 ## 资源包 / Resource packs
 packs.desc=資源包會覆蓋介面貼圖、字型與文字，匯入後立即生效。
 packs.add=新增資源包
-packs.empty=尚未匯入資源包，點擊下方按鈕新增 .kzpack 檔案。
+packs.empty=尚未匯入資源包，點擊下方按鈕新增 .mcpack 檔案。
 packs.version=版本
 packs.statusOn=已啟用
 packs.statusOff=已停用
@@ -154,10 +157,10 @@ packs.down=下移
 packs.delete=刪除資源包
 packs.deleteBody=刪除後這個資源包與其貼圖會被永久移除。
 packs.imported=資源包已匯入並啟用。
-packs.importError=無法讀取這個檔案，請確認它是有效的 .kzpack 壓縮檔。
+packs.importError=無法讀取這個檔案，請確認它是有效的 .mcpack 壓縮檔。
 packs.badManifest=manifest.json 缺少或格式不正確，資源包被拒絕。
 packs.builtin=內建
-packs.uploadHint=支援 .kzpack / .zip，結構同 Minecraft 基岩版資源包。
+packs.uploadHint=支援 .mcpack / .zip，結構同 Minecraft 基岩版資源包。
 wallpaper.volumeLabel=音量
 wallpaper.clickForSound=點擊恢復聲音
 general.playerName=玩家名稱

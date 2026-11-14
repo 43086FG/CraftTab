@@ -1,8 +1,8 @@
-# 资源包（.kzpack）说明
+# 资源包（.mcpack / .zip）说明
 
 资源包目录结构直接沿用 Minecraft 基岩版资源包的写法，内层至少要有根目录的 `manifest.json`（也接受 `pack.json`）。
 
-> 内置默认包使用 `pack.json`，避免与扩展根目录的 `manifest.json` 重名；用户导入的 `.kzpack` 两种文件名都支持，优先读取 `pack.json`。
+> 内置默认包使用 `pack.json`，避免与扩展根目录的 `manifest.json` 重名；用户导入的 `.mcpack` / `.zip` 两种文件名都支持，优先读取 `pack.json`。
 
 ```
 my-pack/
@@ -99,13 +99,14 @@ arrow_left.png
 ## 示例包
 
 - 源码目录：`packs/sample/`
-- 可直接导入的包：`packs/sample.kzpack`
+- 可直接导入的包：`packs/sample.mcpack`（同内容的 `.zip` 版本为 `packs/sample.zip`）
+- 旧格式 `packs/sample.kzpack` 已作废并删除，导入框只接受 `.mcpack` 与 `.zip`。
 
 示例包把 `btn_stone.png` 换成了悬停态贴图，并把中英文的「设置」按钮文案改成带「示例资源包」的字样，导入后能直接在设置页和新标签页看到变化。
 
 ## 导入步骤
 
 1. 打开 `settings.html`，左侧「全局资源」；
-2. 点「添加资源包」，选择 `.kzpack` 或 `.zip`；
+2. 点「添加资源包」，选择 `.mcpack` 或 `.zip`；
 3. 导入成功后默认启用，排在已导入包列表的末尾、内置包之上；
 4. 需要调整覆盖顺序时用 ↑ / ↓，或者停用某个包。

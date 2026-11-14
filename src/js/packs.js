@@ -1,5 +1,5 @@
 /* ============================================================
-   资源包 —— 内置默认包 + 导入 .kzpack（Minecraft 基岩版结构）
+   资源包 —— 内置默认包 + 导入 .mcpack / .zip（Minecraft 基岩版结构）
    目录约定：
      manifest.json          包头（header.name/description/uuid/version）
      pack_icon.png          包标
@@ -611,7 +611,7 @@ const MCPacks = (() => {
       enabled: true,
       order: order,
       importedAt: Date.now(),
-      fileName: file.name || 'resourcepack.kzpack',
+      fileName: file.name || 'resourcepack.mcpack',
       paths: paths,
       icon: iconEntry ? new Blob([iconEntry.bytes], { type: 'image/png' }) : null
     };

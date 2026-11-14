@@ -164,6 +164,8 @@ async function collectCandidates(pageUrl) {
   const host = page.host;
   const fallbacks = [
     page.origin + '/favicon.ico',
+    'https://favicon.im/' + host + '?larger=true',
+    'https://favicon.yandex.net/favicon/' + host,
     'https://icons.duckduckgo.com/ip3/' + host + '.ico',
     'https://www.google.com/s2/favicons?domain=' + host + '&sz=128',
     'https://www.google.com/s2/favicons?domain=' + host + '&sz=64'
