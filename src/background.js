@@ -161,15 +161,8 @@ async function collectCandidates(pageUrl) {
     /* 页面抓取失败时继续走回退链 */
   }
 
-  const host = page.host;
-  const fallbacks = [
-    page.origin + '/favicon.ico',
-    'https://favicon.im/' + host + '?larger=true',
-    'https://favicon.yandex.net/favicon/' + host,
-    'https://icons.duckduckgo.com/ip3/' + host + '.ico',
-    'https://www.google.com/s2/favicons?domain=' + host + '&sz=128',
-    'https://www.google.com/s2/favicons?domain=' + host + '&sz=64'
-  ];
+  /* 只用站点自有图标兜底；公共图标服务返回的是通用图，不属于该站点，不列入候选 */
+  const fallbacks = [page.origin + '/favicon.ico'];
   const list = [];
   for (const url of fallbacks) {
     const data = await fetchImageData(url);

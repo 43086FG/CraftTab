@@ -497,6 +497,17 @@ img {
   background: #3a3a3a var(--tex_missing_texture, url('../assets/missing_texture.png')) center / 36rem 36rem no-repeat;
 }
 
+/* 切换网址后的抓取占位：只显示呼吸态，不残留上一站的图 */
+.icon-cell.icon-loading {
+  background: #3a3a3a;
+  opacity: .5;
+  animation: icon-loading-pulse 1s ease-in-out infinite;
+}
+
+@keyframes icon-loading-pulse {
+  50% { opacity: .22; }
+}
+
 .icon-cell img {
   display: block;
   width: 100%;

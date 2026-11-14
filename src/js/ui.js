@@ -45,7 +45,10 @@ const MCUI = (() => {
     });
   }
 
-  /** 预览环境（无扩展后台）直接给出的回退候选 */
+  /**
+   * 预览环境（无扩展后台）的候选：只取站点自有图标。
+   * 公共图标服务的通用图不属于该站点，宁可不列，也不混进候选。
+   */
   function directCandidates(url) {
     const normalized = MCStore.normalizeUrl(url);
     const host = normalized ? MCStore.hostOf(normalized) : '';
@@ -53,11 +56,7 @@ const MCUI = (() => {
     return [
       'https://' + host + '/favicon.ico',
       'https://' + host + '/apple-touch-icon.png',
-      'https://favicon.im/' + host + '?larger=true',
-      'https://favicon.yandex.net/favicon/' + host,
-      'https://icons.duckduckgo.com/ip3/' + host + '.ico',
-      'https://www.google.com/s2/favicons?domain=' + host + '&sz=128',
-      'https://www.google.com/s2/favicons?domain=' + host + '&sz=64'
+      'https://' + host + '/apple-touch-icon-precomposed.png'
     ];
   }
 
@@ -91,7 +90,7 @@ const MCUI = (() => {
   const iconCache = new Map();
 
   /** 收集 → 解码验证 → 去重 → 按尺寸从大到小排序；onItem 用于边抓边显示 */
-  async function discoverIcons(url, force, onItem) {
+  async function discoverIcons(url, force, onItem, isStale) {
     const pageUrl = MCStore.normalizeUrl(url);
     const key = pageUrl || '';
     if (!force && iconCache.has(key)) {
@@ -115,6 +114,7 @@ const MCUI = (() => {
     });
     const decoded = [];
     for (const src of unique.slice(0, 12)) {
+      if (isStale && isStale()) return [];
       const info = await probeImage(src);
       if (!info) continue;
       const largeEnough = isSvgData(src) || (info.w >= ICON_MIN_SIZE && info.h >= ICON_MIN_SIZE);
@@ -129,7 +129,8 @@ const MCUI = (() => {
   }
 
   /**
-   * 构建图标选择网格；返回 { getIcon }
+   * 构建图标选择网格；返回 { getIcon, refresh, invalidate }
+   * invalidate 立即作废当前候选与选中（切换网址时用，防止旧站点结果回写）
    */
   function mountIconPicker(gridEl, uploadBtn, fileInput, refreshBtn, initialIcon, getUrl) {
     let selected = initialIcon || '';
@@ -140,10 +141,20 @@ const MCUI = (() => {
     hint.hidden = true;
     gridEl.parentNode.insertBefore(hint, gridEl.nextSibling);
 
+    function showLoading() {
+      hint.hidden = true;
+      gridEl.innerHTML = '';
+      const cell = document.createElement('div');
+      cell.className = 'icon-cell icon-loading';
+      cell.setAttribute('aria-hidden', 'true');
+      gridEl.appendChild(cell);
+    }
+
     function addCell(value, src) {
       const cell = document.createElement('button');
       cell.type = 'button';
-      cell.className = 'icon-cell' + (value === selected ? ' is-selected' : '');
+      /* 空值代表 missing 占位，未主动点选时不应显示为已选中 */
+      cell.className = 'icon-cell' + (value && value === selected ? ' is-selected' : '');
       cell.dataset.icon = value;
       const img = document.createElement('img');
       img.alt = '';
@@ -169,11 +180,11 @@ const MCUI = (() => {
 
     async function render(url, force) {
       const token = ++renderToken;
+      const pageUrl = MCStore.normalizeUrl(url);
       hint.hidden = true;
       gridEl.innerHTML = '';
       if (selected) addCell(selected, selected);
       addCell('', defaultIcon());
-      const pageUrl = MCStore.normalizeUrl(url);
       if (!pageUrl) {
         hint.textContent = t('form.iconFailed');
         hint.hidden = false;
@@ -184,12 +195,19 @@ const MCUI = (() => {
         if (token !== renderToken || shown.has(item.src)) return;
         shown.add(item.src);
         addCell(item.src, item.src);
-      });
+      }, () => token !== renderToken);
       if (token !== renderToken) return;
       if (!list.length) {
         hint.textContent = t('form.iconFailed');
         hint.hidden = false;
       }
+    }
+
+    /** 立即清空候选与选中，并进入加载态；随后的 render 结果若已过期会被丢弃 */
+    function invalidate() {
+      renderToken++;
+      selected = '';
+      showLoading();
     }
 
     async function refreshNow() {
@@ -220,7 +238,7 @@ const MCUI = (() => {
     });
 
     render(getUrl());
-    return { getIcon: () => selected, refresh: refreshNow };
+    return { getIcon: () => selected, refresh: refreshNow, invalidate: invalidate };
   }
 
   const BTN_ICON = {
@@ -283,6 +301,25 @@ const MCUI = (() => {
     toastEl.classList.add('is-visible');
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => toastEl.classList.remove('is-visible'), 1800);
+  }
+
+  /* 少数常见品牌保留原有大小写，其余按域名首字母大写推导 */
+  const NAME_CASE = {
+    deepseek: 'DeepSeek',
+    github: 'GitHub',
+    youtube: 'YouTube',
+    google: 'Google'
+  };
+
+  /** 由网址推导一个可编辑的默认名称，例如 deepseek.com → DeepSeek */
+  function nameFromUrl(url) {
+    const host = MCStore.hostOf(url || '');
+    if (!host) return '';
+    const label = host.replace(/^www\./i, '').split('.')[0] || host;
+    const words = label.replace(/[-_]+/g, ' ').trim().split(/\s+/).filter(Boolean);
+    return words
+      .map((word) => NAME_CASE[word.toLowerCase()] || (word.charAt(0).toUpperCase() + word.slice(1)))
+      .join(' ');
   }
 
   /** 添加 / 编辑网址表单 */
@@ -348,40 +385,33 @@ const MCUI = (() => {
       () => urlEl.value
     );
 
-    /* 网址变化后自动重新抓取候选，避免只显示 missing 图标 */
-    let iconTimer = 0;
-    urlEl.addEventListener('input', () => {
-      clearTimeout(iconTimer);
-      iconTimer = setTimeout(() => picker.refresh(), 700);
-    });
-
     const showError = (msg) => {
       errEl.textContent = msg;
       errEl.hidden = !msg;
     };
 
-    let lastUrl = urlEl.value;
-    const refreshForUrl = () => {
-      if (urlEl.value === lastUrl) return;
-      lastUrl = urlEl.value;
-      picker.refresh(urlEl.value);
+    /* 名称只由用户输入，不跟随网址自动写入；保存时为空则静默用域名兜底 */
+    let lastUrl = MCStore.normalizeUrl(urlEl.value) || '';
+    let iconTimer = 0;
+    const syncUrlChange = () => {
+      const current = MCStore.normalizeUrl(urlEl.value) || '';
+      if (current === lastUrl) return;
+      lastUrl = current;
+      picker.invalidate();
+      clearTimeout(iconTimer);
+      if (!current) return;
+      iconTimer = setTimeout(() => picker.refresh(), 400);
     };
-    urlEl.addEventListener('change', refreshForUrl);
-    urlEl.addEventListener('blur', refreshForUrl);
+    urlEl.addEventListener('input', syncUrlChange);
 
     const submit = () => {
-      const name = nameEl.value.trim();
       const url = MCStore.normalizeUrl(urlEl.value);
-      if (!name) {
-        showError(t('form.errorName'));
-        nameEl.focus();
-        return;
-      }
       if (!url) {
         showError(t('form.errorUrl'));
         urlEl.focus();
         return;
       }
+      const name = nameEl.value.trim() || nameFromUrl(url);
       close();
       opts.onSubmit({ name: name, url: url, icon: picker.getIcon() });
     };
