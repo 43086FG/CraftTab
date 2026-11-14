@@ -1,0 +1,168 @@
+﻿## Minecraft Style New Tab — Norsk Bokmål
+## Format: key=value, same as vanilla Minecraft .lang files
+
+## Main menu
+menu.search=Søk
+menu.settings=Innstillinger
+menu.widgets=Verktøy
+
+## Search panel
+search.title=Finn en side med søkeord
+search.placeholder=Skriv inn et søkeord…
+search.hint=Trykk Enter for å søke
+search.history=Søkehistorikk
+search.clear=Tøm historikken
+search.empty=Ingen søkehistorikk ennå
+
+## Inventory
+inventory.title=Verktøy
+inventory.searchPlaceholder=Søk etter verktøy
+inventory.newCategory=Ny kategori
+inventory.close=Lukk
+inventory.dragHint=Dra et ikon ut av panelet for å slette det
+inventory.empty=Denne kategorien er tom. Klikk + for å legge til et verktøy.
+inventory.noMatch=Ingen samsvarende verktøy
+inventory.hotbar=Hurtiglinje
+inventory.welcomeTitle=Velkommen tilbake
+inventory.welcomeBody=Du har ingen kategorier ennå. Opprett en for å lagre favorittsidene dine.
+inventory.welcomeAction=Opprett første kategori
+
+## Category
+category.createTitle=Ny kategori
+category.nameLabel=Kategorinavn
+category.namePlaceholder=f.eks. Minecraft
+category.cancel=Avbryt
+category.save=Opprett kategori
+
+## Add / edit form
+form.addTitle=Legg til verktøy
+form.editTitle=Endre verktøy
+form.nameLabel=Nettstedsnavn
+form.namePlaceholder=f.eks. Minecraft Wiki
+form.urlLabel=Nettadresse
+form.urlPlaceholder=Skriv inn en nettadresse, f.eks. minecraft.net
+form.cancelAdd=Avbryt
+form.saveAdd=Lagre
+form.cancelEdit=Avbryt
+form.saveEdit=Lagre endringer
+form.errorName=Skriv inn et nettstedsnavn
+form.errorUrl=Skriv inn en gyldig nettadresse
+
+## Delete confirmation
+delete.title=Er du sikker?
+delete.body=Hvis du sletter dette verktøyet, forsvinner det for alltid.
+delete.cancel=Avbryt
+delete.confirm=Slett verktøy
+delete.categoryBody=Hvis du sletter denne kategorien, forsvinner alle verktøyene i den for alltid.
+delete.categoryConfirm=Slett kategori
+
+## Settings
+settings.title=Innstillinger
+settings.back=Tilbake
+nav.wallpaper=Bakgrunn
+nav.general=Generelle innstillinger
+nav.widgets=Verktøy
+nav.language=Språk
+nav.reset=Tilbakestill og sikkerhetskopier
+nav.packs=Globale ressurser
+
+## Wallpaper
+wallpaper.localLabel=Lokal fil (bilde, GIF eller video)
+wallpaper.chooseFile=Velg fil
+wallpaper.urlLabel=Nettlenke
+wallpaper.urlPlaceholder=Lims inn en lenke til bilde, GIF eller video
+wallpaper.apply=Bruk lenke
+wallpaper.restoreDefault=Gjenopprett standardbakgrunn
+wallpaper.current=Gjeldende bakgrunn
+wallpaper.typeDefault=Standardbakgrunn
+wallpaper.typeImage=Bilde
+wallpaper.typeVideo=Video
+wallpaper.soundLabel=Lyd i bakgrunnen
+wallpaper.soundDesc=Når dette er slått på, spiller videobakgrunner lyd. Dempet som standard.
+wallpaper.fileHint=Støtter JPG, PNG, GIF, MP4 og WebM, opptil 24 MB per fil.
+wallpaper.fileTooLarge=Filen er for stor. Velg en fil under 24 MB.
+wallpaper.saveError=Kunne ikke lagre bakgrunnen. Prøv en annen fil.
+
+## General
+general.searchEngine=Standard søkemotor
+general.searchEngineDesc=Søkepanelet på hjemmesiden bruker søkemotoren som er valgt her.
+
+## Language
+language.desc=Velg grensesnittspråk. Alle sider oppdateres umiddelbart.
+language.current=Gjeldende språk
+language.name.zh_CN=Forenklet kinesisk
+language.name.zh_TW=Tradisjonell kinesisk
+language.name.en=Engelsk
+language.name.ja=Japansk
+language.name.ko=Koreansk
+language.name.es=Spansk
+language.name.ru=Russisk
+language.name.fr=Fransk
+language.name.nb_NO=Norsk
+
+## Widgets settings
+widgets.desc=Administrer kategorier og hurtiglinje. Sletting av en kategori fjerner også verktøyene i den.
+widgets.categories=Kategorier
+widgets.itemsCount={n} verktøy
+widgets.rename=Gi nytt navn
+widgets.delete=Slett kategori
+widgets.clearHotbar=Tøm hurtiglinjen
+widgets.hotbarUsage=Hurtiglinjeplasser brukt: {n}/9
+widgets.empty=Ingen kategorier ennå. Opprett en i verktøypanelet på hjemmesiden.
+widgets.renameTitle=Gi kategorien nytt navn
+widgets.newCategory=Ny kategori
+widgets.save=Lagre
+
+## Reset & backup
+reset.desc=Slett alle kategorier, verktøy, søkehistorikk og innstillinger og gå tilbake til starttilstanden.
+reset.all=Tilbakestill alle innstillinger
+reset.backup=Sikkerhetskopiering og gjenoppretting
+reset.export=Eksporter sikkerhetskopi
+reset.import=Importer sikkerhetskopi
+reset.exportDone=Sikkerhetskopien er eksportert.
+reset.importDone=Sikkerhetskopien er importert.
+reset.importError=Sikkerhetskopifilen er ugyldig.
+toast.saved=Lagret
+
+# —— Icon picker / search matches ——
+search.matches=Samsvarende verktøy
+form.iconLabel=Ikon
+form.iconRefresh=Hent ikoner
+form.iconUpload=Last opp ikon
+form.iconFailed=Fant ingen brukbare ikoner – last opp et manuelt
+nav.about=Om
+group.about=Om
+about.author=Forfatter
+about.email=Kontakt-e-post
+about.version=Versjon
+about.texturesFrom=Teksturer fra Minecraft Bedrock
+about.texturesCopyright=Teksturene tilhører Mojang Studios
+general.playerNamePlaceholder=La stå tom for å bruke kontonavnet i nettleseren
+
+# —— Settings groups ——
+group.general=Generelt
+group.appearance=Utseende
+group.data=Data
+
+## Resource packs
+packs.desc=Ressurspakker overstyrer grensesnittets teksturer, skrifter og tekst. Endringene trer i kraft umiddelbart etter import.
+packs.add=Legg til ressurspakke
+packs.empty=Ingen ressurspakker er importert ennå. Bruk knappen nedenfor for å legge til en .mcpack-fil.
+packs.version=Versjon
+packs.statusOn=Aktivert
+packs.statusOff=Deaktivert
+packs.enable=Aktiver
+packs.disable=Deaktiver
+packs.up=Flytt opp
+packs.down=Flytt ned
+packs.delete=Slett pakke
+packs.deleteBody=Hvis du sletter denne pakken, fjernes den og teksturene permanent.
+packs.imported=Ressurspakken er importert og aktivert.
+packs.importError=Filen kunne ikke leses. Kontroller at den er et gyldig .mcpack-arkiv.
+packs.badManifest=manifest.json mangler eller er ugyldig, så pakken ble avvist.
+packs.builtin=Innebygd
+packs.uploadHint=Støtter .mcpack / .zip med Minecraft Bedrock-ressurspakkens struktur.
+wallpaper.volumeLabel=Volum
+wallpaper.clickForSound=Klikk for å gjenoppta lyden
+general.playerName=Spillernavn
+general.playerNameHint=Vises øverst til høyre på hovedskjermen; la stå tom for å bruke kontonavnet i nettleseren.

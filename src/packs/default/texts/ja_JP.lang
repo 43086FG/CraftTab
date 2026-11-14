@@ -98,6 +98,7 @@ language.name.ko=韓国語
 language.name.es=スペイン語
 language.name.ru=ロシア語
 language.name.fr=フランス語
+language.name.nb_NO=Norsk
 
 ## ウィジェット設定
 widgets.desc=カテゴリとホットバーを管理します。カテゴリを削除すると中のウィジェットも消えます。

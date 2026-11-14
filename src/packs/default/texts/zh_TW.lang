@@ -98,6 +98,7 @@ language.name.ko=韓文
 language.name.es=西班牙文
 language.name.ru=俄文
 language.name.fr=法文
+language.name.nb_NO=Norsk
 
 ## 小工具設定
 widgets.desc=管理分類和快捷欄。刪除分類會同時移除其中的組件。

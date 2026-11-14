@@ -183,28 +183,27 @@ img {
   border-image-source: var(--tex_btn_light, url('../assets/vanilla/btn_light.png'));
 }
 
-/* ---------- 原版开关（toggle_* 30x16 → 两倍） ---------- */
+/* ---------- 图像开关：内嵌单张 img，四态由 JS 切换 ---------- */
 
 .mc-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8rem;
   flex: 0 0 auto;
+  padding: 0;
+  margin: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  line-height: 0;
+  color: inherit;
+}
+
+.mc-toggle img {
+  display: block;
   width: 60rem;
   height: 32rem;
-  background-image: var(--tex_toggle_off, url('../assets/vanilla/toggle_off.png'));
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
   image-rendering: pixelated;
-}
-
-.mc-toggle:hover {
-  background-image: var(--tex_toggle_off_hover, url('../assets/vanilla/toggle_off_hover.png'));
-}
-
-.mc-toggle.is-on {
-  background-image: var(--tex_toggle_on, url('../assets/vanilla/toggle_on.png'));
-}
-
-.mc-toggle.is-on:hover {
-  background-image: var(--tex_toggle_on_hover, url('../assets/vanilla/toggle_on_hover.png'));
 }
 
 .mc-toggle:focus-visible {
@@ -212,23 +211,9 @@ img {
   outline-offset: 2rem;
 }
 
-/* ---------- 原版方形复选框（checkbox 16x13） ---------- */
-
-.mc-check {
-  flex: 0 0 auto;
-  width: 28rem;
-  height: 23rem;
-  background: none;
-  border: 0;
-  padding: 0;
-  image-rendering: pixelated;
-}
-
-.mc-check img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  image-rendering: pixelated;
+.mc-toggle:disabled {
+  opacity: .6;
+  cursor: default;
 }
 
 /* ---------- 操作按钮（纯 CSS 复原：四边对称，不依赖贴图切片） ---------- */

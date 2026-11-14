@@ -98,6 +98,7 @@ language.name.ko=Корейский
 language.name.es=Испанский
 language.name.ru=Русский
 language.name.fr=Французский
+language.name.nb_NO=Norsk
 
 ## Настройки виджетов
 widgets.desc=Управление категориями и панелью быстрого доступа. Удаление категории удаляет и её виджеты.

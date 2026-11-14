@@ -11,7 +11,8 @@ const MC_LANGS = [
   { id: 'ko', file: 'ko_KR.lang', native: '한국어', label: '한국어 (대한민국)' },
   { id: 'es', file: 'es_ES.lang', native: 'Español', label: 'Español (España)' },
   { id: 'ru', file: 'ru_RU.lang', native: 'Русский', label: 'Русский (Россия)' },
-  { id: 'fr', file: 'fr_FR.lang', native: 'Français', label: 'Français (France)' }
+  { id: 'fr', file: 'fr_FR.lang', native: 'Français', label: 'Français (France)' },
+  { id: 'nb', file: 'nb_NO.lang', native: 'Norsk', label: 'Norsk' }
 ];
 
 const MC_TEXT_DIR = 'texts/';

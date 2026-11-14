@@ -851,23 +851,24 @@
   image-rendering: pixelated;
 }
 
-/* 原版风格悬停提示：深色方角像素框，跟随光标，无延迟无淡入 */
+/* 原版风格悬停提示：九宫格贴图（四角与边不拉伸，中段平铺），跟随光标，无延迟无淡入 */
 .slot-tooltip {
   position: fixed;
   z-index: 35;
-  max-width: 360rem;
-  padding: 6rem 10rem;
+  max-width: min(360rem, 86vw);
+  padding: 3rem 8rem;
   font-size: 15rem;
-  line-height: 1.25;
-  color: #f2f2f2;
-  background: #1d1d1d;
-  border: 2rem solid #000000;
-  box-shadow: inset 2rem 2rem 0 #4a4a4a, inset -2rem -2rem 0 #0c0c0c;
+  line-height: 1.3;
+  color: #ffffff;
+  background: transparent;
+  border: 6rem solid transparent;
+  border-image: var(--tex_tooltip_box, url('../assets/vanilla/tooltip_box.png')) 6 fill / 6rem repeat;
   image-rendering: pixelated;
   pointer-events: none;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  text-align: left;
 }
 
 .slot-add {

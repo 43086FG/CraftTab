@@ -118,6 +118,46 @@
     return parent;
   }
 
+  /** 图像开关：四态贴图随勾选/悬停切换，按钮整块可点，支持键盘聚焦 */
+  function buildToggle(checked, onChange) {
+    const button = mk('button', 'mc-toggle');
+    button.type = 'button';
+    button.setAttribute('role', 'checkbox');
+    const img = document.createElement('img');
+    img.alt = '';
+    let on = !!checked;
+    let hover = false;
+    const paint = () => {
+      const key = on ? (hover ? 'toggle_on_hover' : 'toggle_on') : (hover ? 'toggle_off_hover' : 'toggle_off');
+      img.src = MCPacks.tex(key);
+      button.setAttribute('aria-checked', on ? 'true' : 'false');
+    };
+    button.appendChild(img);
+    button.addEventListener('mouseenter', () => {
+      hover = true;
+      paint();
+    });
+    button.addEventListener('mouseleave', () => {
+      hover = false;
+      paint();
+    });
+    button.addEventListener('focus', () => {
+      hover = true;
+      paint();
+    });
+    button.addEventListener('blur', () => {
+      hover = false;
+      paint();
+    });
+    button.addEventListener('click', () => {
+      on = !on;
+      paint();
+      onChange(on);
+    });
+    paint();
+    return button;
+  }
+
   function moduleHead(title) {
     const head = mk('div', 'module-head');
     const h1 = mk('h1', 'module-title', title);
@@ -277,24 +317,14 @@
     wrap.appendChild(settingRow(t('wallpaper.urlLabel'), urlInput));
 
     /* 声音 */
-    const soundRow = mk('div', 'setting-check');
-    const soundToggle = mk('button', 'mc-check');
-    soundToggle.type = 'button';
-    soundToggle.setAttribute('role', 'checkbox');
-    soundToggle.setAttribute('aria-checked', wp.sound ? 'true' : 'false');
-    soundToggle.setAttribute('aria-label', t('wallpaper.soundLabel'));
-    const soundImg = document.createElement('img');
-    soundImg.alt = '';
-    soundImg.src = MCPacks.tex(wp.sound ? 'checkbox_on' : 'checkbox_off');
-    soundToggle.appendChild(soundImg);
     let volumeSlider = null;
-    soundToggle.addEventListener('click', () => {
-      state.wallpaper.sound = !state.wallpaper.sound;
-      soundImg.src = MCPacks.tex(state.wallpaper.sound ? 'checkbox_on' : 'checkbox_off');
-      soundToggle.setAttribute('aria-checked', state.wallpaper.sound ? 'true' : 'false');
-      if (volumeSlider) volumeSlider.disabled = !state.wallpaper.sound;
+    const soundRow = mk('div', 'setting-check');
+    const soundToggle = buildToggle(wp.sound, (on) => {
+      state.wallpaper.sound = on;
+      if (volumeSlider) volumeSlider.disabled = !on;
       persist();
     });
+    soundToggle.setAttribute('aria-label', t('wallpaper.soundLabel'));
     append(soundRow, soundToggle, mk('span', 'setting-check-label', t('wallpaper.soundLabel')));
     wrap.appendChild(soundRow);
     wrap.appendChild(mk('p', 'hint', t('wallpaper.soundDesc')));
@@ -618,21 +648,12 @@
       return controls;
     }
 
-    const toggle = mk('button', 'pack-toggle');
-    toggle.type = 'button';
-    toggle.setAttribute('role', 'checkbox');
-    toggle.setAttribute('aria-checked', pack.enabled ? 'true' : 'false');
-    toggle.title = pack.enabled ? t('packs.disable') : t('packs.enable');
-    const checkImg = document.createElement('img');
-    checkImg.alt = '';
-    checkImg.src = MCPacks.tex(pack.enabled ? 'checkbox_on' : 'checkbox_off');
-    toggle.appendChild(checkImg);
-    toggle.appendChild(mk('span', 'pack-status', pack.enabled ? t('packs.statusOn') : t('packs.statusOff')));
-    toggle.addEventListener('click', async () => {
+    const toggle = buildToggle(pack.enabled, async (on) => {
       toggle.disabled = true;
-      await MCPacks.setEnabled(pack.id, !pack.enabled);
+      await MCPacks.setEnabled(pack.id, on);
       await afterPacksChange();
     });
+    toggle.title = pack.enabled ? t('packs.disable') : t('packs.enable');
     controls.appendChild(toggle);
 
     const up = mk('button', 'mini-btn is-arrow', '↑');
@@ -688,10 +709,9 @@
     const info = mk('div', 'pack-info');
     info.appendChild(mk('span', 'pack-name', pack.name));
     if (pack.description) info.appendChild(mk('span', 'pack-desc', pack.description));
-    const status = pack.builtin
-      ? 'Version ' + pack.version
-      : 'Version ' + pack.version + ' · ' + (pack.enabled ? 'Enabled' : 'Disabled');
-    info.appendChild(mk('span', 'pack-version', status));
+    info.appendChild(mk('span', 'pack-version', 'Version ' + pack.version));
+    const enabled = pack.builtin ? true : !!pack.enabled;
+    info.appendChild(mk('span', 'pack-state' + (enabled ? ' is-on' : ' is-off'), t(enabled ? 'packs.statusOn' : 'packs.statusOff')));
     row.appendChild(info);
     row.appendChild(packControls(pack));
     return row;

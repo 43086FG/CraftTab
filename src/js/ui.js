@@ -13,7 +13,7 @@ const MCUI = (() => {
 
   /* 只用 <img> 解码验证，不做内容校验；尺寸不再设下限，避免误杀 16px 小图标 */
   const ICON_MIN_SIZE = 1;
-  const ICON_TIMEOUT_MS = 8000;
+  const ICON_TIMEOUT_MS = 4000;
 
   /** 交给扩展后台抓页面 HTML / manifest；预览环境返回空数组 */
   function backgroundIcons(pageUrl) {
@@ -90,27 +90,38 @@ const MCUI = (() => {
 
   const iconCache = new Map();
 
-  /** 收集 → 解码验证 → 过滤尺寸 → 按尺寸从大到小排序 */
-  async function discoverIcons(url, force) {
+  /** 收集 → 解码验证 → 去重 → 按尺寸从大到小排序；onItem 用于边抓边显示 */
+  async function discoverIcons(url, force, onItem) {
     const pageUrl = MCStore.normalizeUrl(url);
     const key = pageUrl || '';
-    if (!force && iconCache.has(key)) return iconCache.get(key);
+    if (!force && iconCache.has(key)) {
+      const cached = iconCache.get(key);
+      if (onItem) cached.forEach((item) => onItem(item));
+      return cached;
+    }
     const sources = [];
     (await backgroundIcons(pageUrl)).forEach((item) => {
       const src = typeof item === 'string' ? item : item && item.src;
       if (src) sources.push(src);
     });
-    if (!sources.length) {
-      /* 扩展后台不可用时，仍按顺序尝试站内与公共图标服务 */
-      directCandidates(url).forEach((src) => sources.push(src));
-    }
+    /* 同时补充站内与公共图标服务，覆盖不同尺寸与不同来源 */
+    directCandidates(url).forEach((src) => sources.push(src));
+    const seen = new Set();
+    const unique = [];
+    sources.forEach((src) => {
+      if (!src || seen.has(src)) return;
+      seen.add(src);
+      unique.push(src);
+    });
     const decoded = [];
-    for (const src of sources.slice(0, 12)) {
+    for (const src of unique.slice(0, 12)) {
       const info = await probeImage(src);
       if (!info) continue;
       const largeEnough = isSvgData(src) || (info.w >= ICON_MIN_SIZE && info.h >= ICON_MIN_SIZE);
       if (!largeEnough) continue;
-      decoded.push({ src: src, w: info.w || ICON_MIN_SIZE, h: info.h || ICON_MIN_SIZE });
+      const item = { src: src, w: info.w || ICON_MIN_SIZE, h: info.h || ICON_MIN_SIZE };
+      decoded.push(item);
+      if (onItem) onItem(item);
     }
     decoded.sort((a, b) => b.w * b.h - a.w * a.h);
     iconCache.set(key, decoded);
@@ -163,22 +174,34 @@ const MCUI = (() => {
       if (selected) addCell(selected, selected);
       addCell('', defaultIcon());
       const pageUrl = MCStore.normalizeUrl(url);
-      if (!pageUrl) return;
-      const list = await discoverIcons(url, force);
+      if (!pageUrl) {
+        hint.textContent = t('form.iconFailed');
+        hint.hidden = false;
+        return;
+      }
+      const shown = new Set();
+      const list = await discoverIcons(url, force, (item) => {
+        if (token !== renderToken || shown.has(item.src)) return;
+        shown.add(item.src);
+        addCell(item.src, item.src);
+      });
       if (token !== renderToken) return;
-      list.forEach((item) => addCell(item.src, item.src));
       if (!list.length) {
         hint.textContent = t('form.iconFailed');
         hint.hidden = false;
       }
     }
 
-    refreshBtn.addEventListener('click', async () => {
-      if (refreshBtn.disabled) return;
-      refreshBtn.disabled = true;
+    async function refreshNow() {
       const pageUrl = MCStore.normalizeUrl(getUrl());
       iconCache.delete(pageUrl || '');
       await render(getUrl(), true);
+    }
+
+    refreshBtn.addEventListener('click', async () => {
+      if (refreshBtn.disabled) return;
+      refreshBtn.disabled = true;
+      await refreshNow();
       refreshBtn.disabled = false;
     });
 
@@ -197,7 +220,7 @@ const MCUI = (() => {
     });
 
     render(getUrl());
-    return { getIcon: () => selected };
+    return { getIcon: () => selected, refresh: refreshNow };
   }
 
   const BTN_ICON = {
@@ -324,6 +347,13 @@ const MCUI = (() => {
       item.icon || '',
       () => urlEl.value
     );
+
+    /* 网址变化后自动重新抓取候选，避免只显示 missing 图标 */
+    let iconTimer = 0;
+    urlEl.addEventListener('input', () => {
+      clearTimeout(iconTimer);
+      iconTimer = setTimeout(() => picker.refresh(), 700);
+    });
 
     const showError = (msg) => {
       errEl.textContent = msg;

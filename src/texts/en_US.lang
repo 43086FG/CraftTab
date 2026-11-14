@@ -98,6 +98,7 @@ language.name.ko=Korean
 language.name.es=Spanish
 language.name.ru=Russian
 language.name.fr=French
+language.name.nb_NO=Norsk
 
 ## Widgets settings
 widgets.desc=Manage your categories and hotbar. Deleting a category also removes its widgets.

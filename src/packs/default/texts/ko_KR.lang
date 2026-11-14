@@ -98,6 +98,7 @@ language.name.ko=한국어
 language.name.es=스페인어
 language.name.ru=러시아어
 language.name.fr=프랑스어
+language.name.nb_NO=Norsk
 
 ## 위젯 설정
 widgets.desc=카테고리와 퀵 슬롯을 관리합니다. 카테고리를 삭제하면 안의 위젯도 함께 삭제됩니다.

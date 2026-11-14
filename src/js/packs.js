@@ -677,7 +677,7 @@ const MCPacks = (() => {
         version: versionText(pack.version),
         enabled: !!pack.enabled,
         builtin: false,
-        iconUrl: iconUrl || tex('icon_packs')
+        iconUrl: iconUrl || tex('missing_texture')
       };
     });
     list.push({

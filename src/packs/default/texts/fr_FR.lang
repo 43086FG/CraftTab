@@ -98,6 +98,7 @@ language.name.ko=Coréen
 language.name.es=Espagnol
 language.name.ru=Russe
 language.name.fr=Français
+language.name.nb_NO=Norsk
 
 ## Paramètres des widgets
 widgets.desc=Gérez vos catégories et la barre rapide. Supprimer une catégorie supprime aussi ses widgets.

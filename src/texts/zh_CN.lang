@@ -98,6 +98,7 @@ language.name.ko=韩语
 language.name.es=西班牙语
 language.name.ru=俄语
 language.name.fr=法语
+language.name.nb_NO=Norsk
 
 ## 小组件设置
 widgets.desc=管理分类和快捷栏。删除分类会同时移除其中的组件。
