@@ -192,6 +192,7 @@
 }
 
 .match-item {
+  position: relative; /* 作为内部绝对定位图标的包含块，防止以外层视口定位 */
   display: flex;
   align-items: center;
   gap: 10rem;
@@ -206,6 +207,28 @@
   border-bottom: 2rem solid #1f1f1f;
   white-space: nowrap;
   overflow: hidden;
+}
+
+/* 匹配项图标容器：固定 20×20，禁止被大尺寸图标撑开 */
+.match-icon {
+  position: relative;
+  flex: 0 0 20rem;
+  width: 20rem;
+  height: 20rem;
+  overflow: hidden;
+}
+
+/* 覆盖格子用的绝对定位，让同一套 makeIcon 在列表行里按 20rem 渲染 */
+.match-icon .slot-icon,
+.search-panel .slot-icon {
+  position: static;
+  display: block;
+  width: 20rem;
+  height: 20rem;
+  max-width: 20rem;
+  max-height: 20rem;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 .match-item:hover,

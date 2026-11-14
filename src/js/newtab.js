@@ -663,7 +663,12 @@
       const host = document.createElement('span');
       host.className = 'match-host';
       host.textContent = MCStore.hostOf(item.url) || item.url;
-      button.appendChild(makeIcon(item));
+      /* 图标必须放进固定尺寸容器：.slot-icon 是绝对定位（用于格子），
+         直接放进 flex 行会以视口为包含块铺满全屏 */
+      const iconWrap = document.createElement('span');
+      iconWrap.className = 'match-icon';
+      iconWrap.appendChild(makeIcon(item));
+      button.appendChild(iconWrap);
       button.appendChild(name);
       button.appendChild(host);
       button.addEventListener('click', () => openSavedMatch(item));
