@@ -183,14 +183,33 @@
   border-top: 0;
 }
 
+/* 匹配列表滚动区域：最多 3 行可见，超出时内部滚动 */
+.match-scroll-area {
+  position: relative;
+  margin-top: 4rem;
+}
+
 .match-list {
   list-style: none;
-  margin: 4rem 0 0;
+  margin: 0;
   padding: 0;
-  max-height: 176rem;
+  max-height: 132rem;
   overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   display: flex;
   flex-direction: column;
+}
+
+.match-list::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+/* 出现滚动条时右侧留出自绘轨道的位置，文字与图标不会被遮挡 */
+.match-list.has-scroll {
+  padding-right: 20rem;
 }
 
 .match-item {
@@ -337,7 +356,8 @@
   display: none;
 }
 
-.history-scrollbar {
+.history-scrollbar,
+.match-scrollbar {
   position: absolute;
   top: 0;
   right: 0;
@@ -349,7 +369,8 @@
   image-rendering: pixelated;
 }
 
-.history-scroll-thumb {
+.history-scroll-thumb,
+.match-scroll-thumb {
   position: absolute;
   left: 0;
   right: 0;
@@ -360,11 +381,13 @@
   cursor: grab;
 }
 
-.history-scroll-thumb:hover {
+.history-scroll-thumb:hover,
+.match-scroll-thumb:hover {
   background: #d8d8d8;
 }
 
-.history-scroll-thumb.is-dragging {
+.history-scroll-thumb.is-dragging,
+.match-scroll-thumb.is-dragging {
   cursor: grabbing;
   background: #dedede;
 }

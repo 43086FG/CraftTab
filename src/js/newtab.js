@@ -43,6 +43,8 @@
     el.searchProvider = document.getElementById('searchProvider');
     el.searchMatches = document.getElementById('searchMatches');
     el.matchList = document.getElementById('matchList');
+    el.matchScrollbar = document.getElementById('matchScrollbar');
+    el.matchScrollThumb = document.getElementById('matchScrollThumb');
     el.inventoryOverlay = document.getElementById('inventoryOverlay');
     el.inventoryShell = document.getElementById('inventoryShell');
     el.inventoryWindow = document.getElementById('inventoryWindow');
@@ -576,7 +578,6 @@
 
   function bindHistoryScrollbar() {
     if (!el.historyList || !el.historyScrollbar || !el.historyScrollThumb) return;
-
     el.historyList.addEventListener('scroll', updateHistoryScrollbar);
     window.addEventListener('resize', updateHistoryScrollbar);
 
@@ -622,6 +623,76 @@
     });
   }
 
+  let matchScrollDrag = null;
+
+  function updateMatchScrollbar() {
+    if (!el.matchList || !el.matchScrollbar || !el.matchScrollThumb) return;
+    const view = el.matchList.clientHeight;
+    const content = el.matchList.scrollHeight;
+    /* 3 条以内不显示滚动条（容忍亚像素取整误差） */
+    const scrollable = content > view + 2;
+    el.matchList.classList.toggle('has-scroll', scrollable);
+    if (!scrollable) {
+      el.matchScrollbar.hidden = true;
+      el.matchList.scrollTop = 0;
+      return;
+    }
+    el.matchScrollbar.hidden = false;
+    const trackH = el.matchScrollbar.clientHeight;
+    const thumbH = Math.max(24, Math.round(trackH * view / content));
+    const maxScroll = content - view;
+    const maxTop = Math.max(0, trackH - thumbH);
+    el.matchScrollThumb.style.height = thumbH + 'px';
+    el.matchScrollThumb.style.top = (maxScroll ? (el.matchList.scrollTop / maxScroll) * maxTop : 0) + 'px';
+  }
+
+  function bindMatchScrollbar() {
+    if (!el.matchList || !el.matchScrollbar || !el.matchScrollThumb) return;
+
+    el.matchList.addEventListener('scroll', updateMatchScrollbar);
+    window.addEventListener('resize', updateMatchScrollbar);
+
+    el.matchScrollThumb.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      matchScrollDrag = {
+        startY: e.clientY,
+        startTop: parseFloat(el.matchScrollThumb.style.top) || 0
+      };
+      el.matchScrollThumb.classList.add('is-dragging');
+      el.matchScrollThumb.setPointerCapture(e.pointerId);
+    });
+
+    el.matchScrollThumb.addEventListener('pointermove', (e) => {
+      if (!matchScrollDrag) return;
+      const trackH = el.matchScrollbar.clientHeight;
+      const thumbH = el.matchScrollThumb.offsetHeight;
+      const maxTop = Math.max(1, trackH - thumbH);
+      const maxScroll = el.matchList.scrollHeight - el.matchList.clientHeight;
+      const nextTop = Math.min(maxTop, Math.max(0, matchScrollDrag.startTop + (e.clientY - matchScrollDrag.startY)));
+      el.matchList.scrollTop = (nextTop / maxTop) * maxScroll;
+      updateMatchScrollbar();
+    });
+
+    const endDrag = () => {
+      matchScrollDrag = null;
+      el.matchScrollThumb.classList.remove('is-dragging');
+    };
+    el.matchScrollThumb.addEventListener('pointerup', endDrag);
+    el.matchScrollThumb.addEventListener('pointercancel', endDrag);
+
+    el.matchScrollbar.addEventListener('pointerdown', (e) => {
+      if (e.target === el.matchScrollThumb) return;
+      const rect = el.matchScrollbar.getBoundingClientRect();
+      const trackH = el.matchScrollbar.clientHeight;
+      const thumbH = el.matchScrollThumb.offsetHeight;
+      const maxTop = Math.max(1, trackH - thumbH);
+      const maxScroll = el.matchList.scrollHeight - el.matchList.clientHeight;
+      const target = Math.min(maxTop, Math.max(0, e.clientY - rect.top - thumbH / 2));
+      el.matchList.scrollTop = (target / maxTop) * maxScroll;
+      updateMatchScrollbar();
+    });
+  }
+
   /** 汇总所有已保存的小组件（分类 + 快捷栏，按 id 去重） */
   function savedItems() {
     const map = new Map();
@@ -651,6 +722,7 @@
   function renderSearchMatches(query) {
     const keyword = String(query || '').trim().toLowerCase();
     el.matchList.innerHTML = '';
+    updateMatchScrollbar();
     if (!keyword) {
       el.searchMatches.hidden = true;
       return;
@@ -681,6 +753,7 @@
       el.matchList.appendChild(li);
     });
     el.searchMatches.hidden = false;
+    updateMatchScrollbar();
   }
 
   function openSavedMatch(item) {
@@ -1439,6 +1512,7 @@
     bindSlotTooltips(el.hotbar);
     bindGridScrollbar();
     bindHistoryScrollbar();
+    bindMatchScrollbar();
     document.addEventListener('dragover', trackHistoryDrag);
     document.addEventListener('dragend', () => {
       historyDrag = null;
